@@ -19,12 +19,23 @@ def loadCell():
     print ('Creating a generic HH cell from Pospischil2008 template')
     return soma
 
-def loadCellTemplate(template):
+def loadCellCfg(template):
+    h.load_file("stdrun.hoc")
+    h.load_file("import3d.hoc")
+    h.xopen('cells/'+template+'_template')
+    add_synapses=False
+    print ("Loading cell",template)
+    cell = getattr(h, template)(1 if add_synapses else 0)    
+    print (f'Creating a generic {template} cell from Pospischil2008 template')
+    return cell
+
+
+def loadCellNotebook(template):
     h.load_file("stdrun.hoc")
     h.load_file("import3d.hoc")
     h.xopen('../cells/'+template+'_template')
     add_synapses=False
     print ("Loading cell",template)
     cell = getattr(h, template)(1 if add_synapses else 0)    
-    print (cell)
+    print (f'Creating a generic {template} cell from Pospischil2008 template')
     return cell
