@@ -8,21 +8,24 @@ netParams = specs.NetParams()   # object of class NetParams to store the network
 #------------------------------------------------------------------------------
 
 for cellName in cfg.allcells:
-    cellRule = netParams.importCellParams(label=cellName + '_rule', somaAtOrigin=False,
-        conds={'cellType': cellName, 'cellModel': 'HH_full'},
+    cellRule = netParams.importCellParams(
+        label=cellName + '_rule', somaAtOrigin=False,
+        conds={
+            'cellType': cellName,
+            'cellModel': 'HH_full'
+            },
         fileName='cellwrapper_Pospischil2008.py',
         cellName='loadCellCfg',
         cellArgs={'template': cellName},
         cellInstance = True)
-
 
 #------------------------------------------------------------------------------
 # Population parameters
 #------------------------------------------------------------------------------
 
 # for ith-pop create pop with ith-cell of allcells 
-for i_cell, cell in enumerate(cfg.allcells):
-    netParams.popParams[cfg.allcells[i_cell]] = {
+for cell in cfg.allcells:
+    netParams.popParams[cfg.allcells] = {
         'cellType': cell,
         'cellModel': 'HH_full',
         'numCells': 1

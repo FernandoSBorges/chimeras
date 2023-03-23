@@ -27,10 +27,10 @@ cfg.includeParamsLabel = False
 cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
-allpops = ['PY_RS','IN_FS','PY_LTS','PY_IB','PY_IBR']
+#allpops = ['PY_RS','IN_FS','PY_LTS','PY_IB','PY_IBR']
 allcells = ['sIN',  'sPYbr',  'sPYb',  'sPYr',  'sPY']
 
-cfg.recordCells = allpops  # which cells to record from
+cfg.recordCells = allcells  # which cells to record from
 cfg.recordTraces = {'V_soma': {'sec':'soma_0', 'loc':0.5, 'var':'v'}}  ## Dict with traces to record
 cfg.recordStim = True
 cfg.recordTime = True
@@ -50,7 +50,7 @@ cfg.saveCellConns = False		##
 #------------------------------------------------------------------------------
 # Analysis and plotting 
 #------------------------------------------------------------------------------
-cfg.analysis['plotTraces'] = {'include': allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':False, 'figSize':(12, 8), 'fontSize':6}
+cfg.analysis['plotTraces'] = {'include': allcells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':False, 'figSize':(12, 8), 'fontSize':6}
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -60,9 +60,13 @@ cfg.addIClamp = 1
 delaystim = 500
 durationstim = 2000
 step1_current = 0.17
-        
-cfg.IClamp1 = {'pop': 'PY_RS', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp2 = {'pop': 'IN_FS', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp3 = {'pop': 'PY_LTS', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp4 = {'pop': 'PY_IB', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp5 = {'pop': 'PY_IBR', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
+
+for cell in allcells:
+    cfg.IClamp = {
+        'pop': cell,
+        'sec': 'soma_0',
+        'loc': 0.5,
+        'start': delaystim,
+        'dur': durationstim,
+        'amp': step1_current
+        }
