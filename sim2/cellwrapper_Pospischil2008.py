@@ -31,8 +31,10 @@ def loadCellCfg(template):
     return cell
 
 def loadDemoCell(template):
-    h.load_file('cells/mosinit.hoc')
-    h.load_file(f'../cells/{template}.hoc')
+    h.load_file("stdrun.hoc")
+    h.load_file("import3d.hoc")
+    
+    h.xopen(f'../cells/PospischilEtAl2008/demo_{template}.hoc')
     add_synapses=False
     print ("Loading cell",template)
     cell = getattr(h, template)(1 if add_synapses else 0)    
@@ -42,7 +44,7 @@ def loadDemoCell(template):
 def loadCellNotebook(template):
     h.load_file("stdrun.hoc")
     h.load_file("import3d.hoc")
-    h.xopen(f'../cells/{template}_template')
+    h.xopen(f'../cells/PospischilEtAl2008/{template}_template')
     add_synapses=False
     print ("Loading cell", template)
     cell = getattr(h, template)(1 if add_synapses else 0)    

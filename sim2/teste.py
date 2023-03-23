@@ -30,8 +30,8 @@ cfg.includeParamsLabel = False
 cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
+allpops = ['PY_RS','IN_FS','PY_LTS','PY_IB','PY_IBR']
 allcells = ['sIN',  'sPYbr',  'sPYb',  'sPYr',  'sPY']
-alldemos = []
 
 cfg.recordCells = allcells  # which cells to record from
 cfg.recordTraces = {'V_soma': {'sec':'soma_0', 'loc':0.5, 'var':'v'}}  ## Dict with traces to record

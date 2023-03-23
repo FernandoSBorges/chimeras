@@ -50,7 +50,11 @@ cfg.saveCellConns = False		##
 #------------------------------------------------------------------------------
 # Analysis and plotting 
 #------------------------------------------------------------------------------
-cfg.analysis['plotTraces'] = {'include': allcells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':False, 'figSize':(12, 8), 'fontSize':6}
+cfg.analysis['plotTraces'] = {
+    'include': allcells, 'saveFig': True,
+    'showFig': False, 'oneFigPer':'trace',
+    'overlay':False, 'figSize':(12, 8), 'fontSize':6
+    }
 
 #------------------------------------------------------------------------------
 # Current inputs 

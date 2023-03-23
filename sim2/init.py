@@ -7,5 +7,3 @@ rootFolder = os.getcwd()
 os.system('nrnivmodl mod')
 
 sim.createSimulateAnalyze(netParams, cfg)
-
-print(sim.simData)

@@ -25,12 +25,16 @@ for cellName in cfg.allcells:
 
 # for ith-pop create pop with ith-cell of allcells 
 for cell in cfg.allcells:
-    netParams.popParams[cfg.allcells] = {
+    netParams.popParams[cell] = {
         'cellType': cell,
         'cellModel': 'HH_full',
         'numCells': 1
     }
 
+print('=== Populations: ')
+for pop in netParams.popParams.keys():
+    print(pop, end=' ')
+print('==================')
 #------------------------------------------------------------------------------
 # Current inputs (IClamp)
 #------------------------------------------------------------------------------
