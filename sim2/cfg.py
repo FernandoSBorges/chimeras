@@ -1,17 +1,9 @@
+from netpyne import sim
 from netpyne import specs
 
-cfg = specs.SimConfig() # cfg object
+cfg = specs.SimConfig()     
 
-#------------------------------------------------------------------------------
-#
-# SIMULATION CONFIGURATION
-#
-#------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------
-# Run parameters
-#------------------------------------------------------------------------------
-cfg.duration = 5000.0 ## Duration of the sim, in ms  
+cfg.duration = 4000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.01
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -27,7 +19,7 @@ cfg.includeParamsLabel = False
 cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
-#allpops = ['PY_RS','IN_FS','PY_LTS','PY_IB','PY_IBR']
+allpops = ['PY_RS','IN_FS','PY_LTS','PY_IB','PY_IBR']
 allcells = ['sIN',  'sPYbr',  'sPYb',  'sPYr',  'sPY']
 
 cfg.recordCells = allcells  # which cells to record from
@@ -50,11 +42,7 @@ cfg.saveCellConns = False		##
 #------------------------------------------------------------------------------
 # Analysis and plotting 
 #------------------------------------------------------------------------------
-cfg.analysis['plotTraces'] = {
-    'include': allcells, 'saveFig': True,
-    'showFig': False, 'oneFigPer':'trace',
-    'overlay':False, 'figSize':(12, 8), 'fontSize':6
-    }
+cfg.analysis['plotTraces'] = {'include': allcells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':False, 'figSize':(12, 8), 'fontSize':6}
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -63,14 +51,10 @@ cfg.addIClamp = 1
 
 delaystim = 500
 durationstim = 2000
-step1_current = 0.17
-
-for cell in allcells:
-    cfg.IClamp = {
-        'pop': cell,
-        'sec': 'soma_0',
-        'loc': 0.5,
-        'start': delaystim,
-        'dur': durationstim,
-        'amp': step1_current
-        }
+step1_current = 1.1
+        
+cfg.IClamp1 = {'pop': 'sIN', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
+cfg.IClamp2 = {'pop': 'sPYbr', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
+cfg.IClamp3 = {'pop': 'sPYb', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
+cfg.IClamp4 = {'pop': 'sPYr', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
+cfg.IClamp5 = {'pop': 'sPY', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}

@@ -1,23 +1,22 @@
-from netpyne import specs
 import cfg
+from netpyne import specs
 
 netParams = specs.NetParams()   # object of class NetParams to store the network parameters
 
 #------------------------------------------------------------------------------
 # Cell parameters
 #------------------------------------------------------------------------------
-
 for cellName in cfg.allcells:
-    cellRule = netParams.importCellParams(
-        label=cellName + '_rule', somaAtOrigin=False,
-        conds={
-            'cellType': cellName,
-            'cellModel': 'HH_full'
-            },
+    cellRule = netParams.importCellParams(label=cellName + '_rule', somaAtOrigin=False,
+        conds={'cellType': cellName, 'cellModel': 'HH_full'},
         fileName='cellwrapper_Pospischil2008.py',
-        cellName='loadCellCfg',
+        cellName='loadCellNotebook',
         cellArgs={'template': cellName},
         cellInstance = True)
+
+# observation:
+# - when import template cells the label of 'soma' is 'soma_0'.
+netParams.cellParams['sPY_rule']['secs']['soma_0']
 
 #------------------------------------------------------------------------------
 # Population parameters
@@ -31,10 +30,6 @@ for cell in cfg.allcells:
         'numCells': 1
     }
 
-print('=== Populations: ')
-for pop in netParams.popParams.keys():
-    print(pop, end=' ')
-print('==================')
 #------------------------------------------------------------------------------
 # Current inputs (IClamp)
 #------------------------------------------------------------------------------
