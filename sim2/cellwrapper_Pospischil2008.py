@@ -19,39 +19,12 @@ def loadCell():
     print ('Creating a generic HH cell from Pospischil2008 template')
     return soma
 
-
-def loadCellCfg(template):
-    os.chdir('sim2/mod')
-    os.system('nrnivmodl')
-    os.chdir('..')
-    os.chdir('..')
+def loadCellTemplate(template):
+    # -- before to xopen template cell is necessary to compile the mod files
+    # usage nrnivmodl
     h.load_file("stdrun.hoc")
     h.load_file("import3d.hoc")
-    os.chdir('cells/PospischilEtAl2008')
-    os.system('nrnivmodl')
     h.xopen(f'cells/PospischilEtAl2008/{template}_template')
-    add_synapses=False
-    print ("Loading cell",template)
-    cell = getattr(h, template)(1 if add_synapses else 0)    
-    print (f'Creating a generic {template} cell from Pospischil2008 template')
-
-    return cell
-
-
-def loadDemoCell(template):
-    h.load_file("stdrun.hoc")
-    h.load_file("import3d.hoc")
-    h.xopen(f'../cells/PospischilEtAl2008/demo_{template}.hoc')
-    add_synapses=False
-    print ("Loading cell",template)
-    cell = getattr(h, template)(1 if add_synapses else 0)    
-    print (f'Creating a generic {template} cell from Pospischil2008 template')
-    return cell
-
-def loadCellNotebook(template):
-    h.load_file("stdrun.hoc")
-    h.load_file("import3d.hoc")
-    h.xopen(f'../cells/PospischilEtAl2008/{template}_template')
     add_synapses=False
     print ("Loading cell", template)
     cell = getattr(h, template)(1 if add_synapses else 0)    

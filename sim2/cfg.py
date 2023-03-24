@@ -1,9 +1,34 @@
-from netpyne import sim
+"""
+cfg.py 
+
+Simulation configuration for ...
+This file has sim configs as well as specification for parameterized values in netParams.py 
+
+Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
+"""
+
+
+import os
+from matplotlib import pyplot as plt
 from netpyne import specs
 
 cfg = specs.SimConfig()     
 
-cfg.duration = 4000.0 ## Duration of the sim, in ms  
+#------------------------------------------------------------------------------
+#
+# SIMULATION CONFIGURATION
+#
+#------------------------------------------------------------------------------
+
+cfg.coreneuron = False
+
+rootFolder = os.getcwd()
+
+#------------------------------------------------------------------------------
+# Run parameters
+#------------------------------------------------------------------------------
+
+cfg.duration = 3000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.01
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -19,16 +44,16 @@ cfg.includeParamsLabel = False
 cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
-allpops = ['PY_RS','IN_FS','PY_LTS','PY_IB','PY_IBR']
-allcells = ['sIN',  'sPYbr',  'sPYb',  'sPYr',  'sPY']
+cfg.allpops = ['PY_RS']
+cfg.allcells = ['sPY']
 
-cfg.recordCells = allcells  # which cells to record from
+cfg.recordCells = cfg.allcells  # which cells to record from
 cfg.recordTraces = {'V_soma': {'sec':'soma_0', 'loc':0.5, 'var':'v'}}  ## Dict with traces to record
 cfg.recordStim = True
 cfg.recordTime = True
 cfg.recordStep = 0.1            
 
-cfg.simLabel = 'Pospischil2008_teste'
+cfg.simLabel = 'Pospischil2008_RS'
 cfg.saveFolder = '.'
 # cfg.filename =                	## Set file output name
 cfg.savePickle = False         	## Save pkl file
@@ -42,7 +67,8 @@ cfg.saveCellConns = False		##
 #------------------------------------------------------------------------------
 # Analysis and plotting 
 #------------------------------------------------------------------------------
-cfg.analysis['plotTraces'] = {'include': allcells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':False, 'figSize':(12, 8), 'fontSize':6}
+cfg.analysis['plotTraces'] = {'include': cfg.allcells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':False, 'figSize':(12, 4), 'fontSize':12}
+cfg.analysis['plot2Dnet']   = {'include': cfg.allcells, 'saveFig': True, 'showConns': False, 'figSize': (12,12), 'view': 'xz', 'fontSize':12} 
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -51,10 +77,6 @@ cfg.addIClamp = 1
 
 delaystim = 500
 durationstim = 2000
-step1_current = 1.1
+step1_current = 1.0
         
-cfg.IClamp1 = {'pop': 'sIN', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp2 = {'pop': 'sPYbr', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp3 = {'pop': 'sPYb', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp4 = {'pop': 'sPYr', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp5 = {'pop': 'sPY', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
+cfg.IClamp1 = {'pop': 'sPY', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}

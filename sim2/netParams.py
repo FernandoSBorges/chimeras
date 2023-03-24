@@ -1,22 +1,55 @@
-import cfg
+
+"""
+netParams.py
+
+... model using NetPyNE
+
+Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
+"""
+
 from netpyne import specs
+import os
+import numpy as np
 
 netParams = specs.NetParams()   # object of class NetParams to store the network parameters
+
+try:
+    from __main__ import cfg  # import SimConfig object with params from parent module
+except:
+    from cfg import cfg
+
+#------------------------------------------------------------------------------
+#
+# NETWORK PARAMETERS
+#
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# General network parameters
+#------------------------------------------------------------------------------
+netParams.scale = 1.0 # Scale factor for number of cells
+netParams.sizeX = 100.0 # x-dimension (horizontal length) size in um
+netParams.sizeY = 100.0 # y-dimension (vertical height or cortical depth) size in um
+netParams.sizeZ = 100.0 # z-dimension (horizontal depth) size in um
+netParams.shape = 'cylinder' # cylindrical (column-like) volume
+   
 
 #------------------------------------------------------------------------------
 # Cell parameters
 #------------------------------------------------------------------------------
+
+print('Creating cells rules...')
 for cellName in cfg.allcells:
     cellRule = netParams.importCellParams(label=cellName + '_rule', somaAtOrigin=False,
         conds={'cellType': cellName, 'cellModel': 'HH_full'},
-        fileName='cellwrapper_Pospischil2008.py',
-        cellName='loadCellCfg',
+        fileName='sim2/cellwrapper_Pospischil2008.py',
+        cellName='loadCellTemplate',
         cellArgs={'template': cellName},
         cellInstance = True)
 
-# observation:
-# - when import template cells the label of 'soma' is 'soma_0'.
-netParams.cellParams['sPY_rule']['secs']['soma_0']
+    # observation:
+    # - when import template cells the label of 'soma' is 'soma_0'.
+    print(netParams.cellParams[cellName + '_rule']['secs']['soma_0'])
 
 #------------------------------------------------------------------------------
 # Population parameters
@@ -30,6 +63,7 @@ for cell in cfg.allcells:
         'numCells': 1
     }
 
+print(netParams.popParams.keys())
 #------------------------------------------------------------------------------
 # Current inputs (IClamp)
 #------------------------------------------------------------------------------
