@@ -1,3 +1,4 @@
+import os
 from neuron import h # NEURON simulator
 
 def loadCell():
@@ -18,17 +19,23 @@ def loadCell():
     print ('Creating a generic HH cell from Pospischil2008 template')
     return soma
 
+
 def loadCellCfg(template):
+    rootFolder = os.getcwd()
+    os.chdir('sim2/mod')
+    os.system('nrnivmodl')
     h.load_file("stdrun.hoc")
     h.load_file("import3d.hoc")
     #h.load_file(f'cells/{template}_template')
     #h.xopen(f'cells/{template}_template')
-    h.xopen(f'cells/{template}_template')
+    h.xopen(f'{template}_template')
     add_synapses=False
     print ("Loading cell",template)
     cell = getattr(h, template)(1 if add_synapses else 0)    
     print (f'Creating a generic {template} cell from Pospischil2008 template')
+
     return cell
+
 
 def loadDemoCell(template):
     h.load_file("stdrun.hoc")

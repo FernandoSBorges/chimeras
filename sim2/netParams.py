@@ -10,7 +10,7 @@ for cellName in cfg.allcells:
     cellRule = netParams.importCellParams(label=cellName + '_rule', somaAtOrigin=False,
         conds={'cellType': cellName, 'cellModel': 'HH_full'},
         fileName='cellwrapper_Pospischil2008.py',
-        cellName='loadCellNotebook',
+        cellName='loadCellCfg',
         cellArgs={'template': cellName},
         cellInstance = True)
 
