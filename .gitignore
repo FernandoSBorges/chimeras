@@ -132,4 +132,7 @@ dmypy.json
 auth.json
 
 # Checkpoints 
-*.ipynb_checkpoints
+*.
+
+# vscode
+.vscode
