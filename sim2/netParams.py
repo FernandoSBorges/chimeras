@@ -45,7 +45,8 @@ for cellName in cfg.allcells:
         fileName='sim2/cellwrapper_Pospischil2008.py',
         cellName='loadCellTemplate',
         cellArgs={'template': cellName},
-        cellInstance = True)
+        #cellInstance = True
+        )
 
     # observation:
     # - when import template cells the label of 'soma' is 'soma_0'.
