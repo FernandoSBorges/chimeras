@@ -54,9 +54,10 @@ for cellName in cfg.allcells:
 #------------------------------------------------------------------------------
 
 # for ith-pop create pop with ith-cell of allcells 
-for cell in cfg.allcells:
-    netParams.popParams[cell] = {
-        'cellType': cell,
+
+for pop in cfg.allpops:
+    netParams.popParams[pop] = {
+        'cellType': cfg.allcells[0],
         'cellModel': 'HH_full',
         'numCells': 1
     }

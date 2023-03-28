@@ -12,11 +12,14 @@ MPI usage:
 
 Contributors: @gmail.com, fernandodasilvaborges@gmail.com
 """
-
-import matplotlib; matplotlib.use('Agg')  # to avoid graphics error in servers
 from netpyne import sim
 import pickle, json
 import numpy as np
+
+import matplotlib; matplotlib.use('Agg')  # to avoid graphics error in servers
+import seaborn as sns
+from matplotlib import pyplot as plt
+
 
 # cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault='netParams.py')
 cfg, netParams = sim.readCmdLineArgs()
