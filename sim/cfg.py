@@ -63,7 +63,7 @@ cfg.addIClamp = 1
 
 delaystim = 500
 durationstim = 2000
-step1_current = 0.3
+step1_current = 0.12
 
 cfg.IClamp0 =   {'pop': cfg.allpops[0], 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}    
 
