@@ -45,7 +45,7 @@ cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
 cfg.allpops = []
-cfg.allcells = ['sPY'] #'sIN', 'sPYbr', 'sPYb', 'sPYr', 'sPY']
+cfg.allcells = ['sIN'] #'sIN', 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 
 for cell in cfg.allcells:
     cfg.allpops.append(f'pop_{cell}')
@@ -63,7 +63,7 @@ cfg.addIClamp = 1
 
 delaystim = 500
 durationstim = 2000
-step1_current = 0.15
+step1_current = 0.3
 
 cfg.IClamp0 =   {'pop': cfg.allpops[0], 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}    
 
@@ -77,7 +77,7 @@ cfg.recordStim = True
 cfg.recordTime = True
 cfg.recordStep = 0.1            
 
-cfg.simLabel = f'Pospischil2008_RS_{cfg.allcells[0]}'
+cfg.simLabel = f'Pospischil2008_FS_{cfg.allcells[0]}'
 cfg.saveFolder = f'../data/{cfg.allcells[0]}'
 # cfg.filename =                	## Set file output name
 cfg.savePickle = False         	## Save pkl file

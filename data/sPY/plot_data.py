@@ -1,3 +1,11 @@
+"""
+plot_data.py 
+
+File to plot json data of simulations RS pyramidal excitatory and inhibitory neurons
+
+Contributors: conradinho@gmail.com, fernandodasilvaborges@gmail.com
+"""
+
 import json
 import seaborn as sns
 import numpy as np
@@ -8,7 +16,7 @@ sns.set_context('paper')
 #------------------------------------------------------------------------------
 # Read data
 #------------------------------------------------------------------------------
-f = open(f'Pospischil2008_RS_sPY_data.json')
+f = open(f'Pospischil2008_RS_sPY_inh_data.json')
 Pospischil2008_RS_sPY_data = json.load(f)
 
 #------------------------------------------------------------------------------
@@ -52,4 +60,4 @@ plt.tight_layout()
 #------------------------------------------------------------------------------
 # Save figure
 #------------------------------------------------------------------------------
-plt.savefig('RS_sPY_spikes.png')
+plt.savefig('RS_sPY_inh_spikes.png')
