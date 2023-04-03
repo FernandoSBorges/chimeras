@@ -1,7 +1,7 @@
 """
 plot_data.py 
 
-File to plot json data of simulations RS pyramidal excitatory and inhibitory neurons
+File to plot json data of simulations fast-spiking neurons
 
 Contributors: conradinho@gmail.com, fernandodasilvaborges@gmail.com
 """
