@@ -4,7 +4,7 @@ cfg.py
 Simulation configuration for ...
 This file has sim configs as well as specification for parameterized values in netParams.py 
 
-Contributors: conradinho@gmail.com, fernandodasilvaborges@gmail.com
+Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
 """
 
 
@@ -45,7 +45,7 @@ cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
 cfg.allpops = []
-cfg.allcells = ['sPYr'] #'sIN', 'sPYbr', 'sPYb', 'sPYr', 'sPY']
+cfg.allcells = ['sPY'] #'sIN', 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 
 for cell in cfg.allcells:
     cfg.allpops.append(f'pop_{cell}')
@@ -54,7 +54,7 @@ for cell in cfg.allcells:
 # Analysis and plotting 
 #------------------------------------------------------------------------------
 cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':False, 'figSize':(10, 6), 'fontSize':12}
-#cfg.analysis['plot2Dnet']   = {'include': cfg.allcells, 'saveFig': True, 'showConns': False, 'figSize': (12,12), 'view': 'xz', 'fontSize':12} 
+cfg.analysis['plot2Dnet']   = {'include': cfg.allpops, 'saveFig': True, 'showConns': False, 'figSize': (12,12), 'view': 'xz', 'fontSize':12} 
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -77,7 +77,7 @@ cfg.recordStim = True
 cfg.recordTime = True
 cfg.recordStep = 0.1            
 
-cfg.simLabel = f'Pospischil2008_LTS_{cfg.allcells[0]}'
+cfg.simLabel = f'Pospischil2008_RS_{cfg.allcells[0]}'
 cfg.saveFolder = f'../data/{cfg.allcells[0]}'
 # cfg.filename =                	## Set file output name
 cfg.savePickle = False         	## Save pkl file

@@ -4,7 +4,7 @@ netParams.py
 
 ... model using NetPyNE
 
-Contributors: conradinho@gmail.com, fernandodasilvaborges@gmail.com
+Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
 """
 
 from netpyne import specs
@@ -59,7 +59,7 @@ for pop in cfg.allpops:
     netParams.popParams[pop] = {
         'cellType': cfg.allcells[0],
         'cellModel': 'HH_full',
-        'numCells': 1
+        'numCells': 50
     }
 
 #------------------------------------------------------------------------------

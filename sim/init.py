@@ -10,7 +10,7 @@ Usage:
 MPI usage:
     mpiexec -n 4 nrniv -python -mpi init.py
 
-Contributors: @gmail.com, fernandodasilvaborges@gmail.com
+Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
 """
 from netpyne import sim
 import pickle, json
@@ -30,19 +30,22 @@ sim.initialize(
 sim.net.createPops()               			# instantiate network populations
 sim.net.createCells()              			# instantiate network cells based on defined populations
 
-print(sim.rank,sim.net.cells[0].tags)
-ii = 0
-for i,metype in enumerate(sim.net.cells):
+r = 1  # radius
+center = (0.5, 0.5) # center
+theta = np.linspace(0, 2*np.pi, len(sim.net.cells))  # angle 
+x = center[0] + r*np.cos(theta) # x-values
+z = center[1] + r*np.sin(theta) # z-values
 
-    ii = ii * 1      
+# print(sim.rank,sim.net.cells[0].tags)
+for i, metype in enumerate(sim.net.cells):
+    # looping to change the spatial coordinates of neurons
     metype.tags['xnorm'] = 0.5
     metype.tags['ynorm'] = 0.5
     metype.tags['znorm'] = 0.5
-    metype.tags['x'] = 50.0
+    metype.tags['x'] = x[i]
     metype.tags['y'] = 50.0
-    metype.tags['z'] = 50.0
-
-print(sim.rank,sim.net.cells[0].tags)
+    metype.tags['z'] = z[i]
+# print(sim.rank,sim.net.cells[0].tags)
 
 sim.net.connectCells()            			# create connections between cells based on params
 sim.net.addStims() 							# add network stimulation
