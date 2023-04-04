@@ -33,6 +33,9 @@ netParams.sizeY = 100.0 # y-dimension (vertical height or cortical depth) size i
 netParams.sizeZ = 100.0 # z-dimension (horizontal depth) size in um
 netParams.shape = 'cylinder' # cylindrical (column-like) volume
    
+netParams.propVelocity = 100.0    # propagation velocity (um/ms)
+netParams.probLengthConst = 10.0 # length constant for conn probability (um)
+
 
 #------------------------------------------------------------------------------
 # Cell parameters
@@ -43,7 +46,9 @@ for cellName in cfg.allcells:
         fileName='cellwrapper_Pospischil2008.py',
         cellName='loadCell',
         cellArgs={'template': cellName},
-        cellInstance = True)
+        cellInstance = True,
+        importSynMechs=True
+        )
 
     # observation:
     # - when import template cells the label of 'soma' is 'soma_0'.
@@ -55,11 +60,11 @@ for cellName in cfg.allcells:
 
 # for ith-pop create pop with ith-cell of allcells 
 
-for pop in cfg.allpops:
+for i, pop in enumerate(cfg.allpops):
     netParams.popParams[pop] = {
-        'cellType': cfg.allcells[0],
+        'cellType': cfg.allcells[i],
         'cellModel': 'HH_full',
-        'numCells': 50
+        'numCells': 25
     }
 
 #------------------------------------------------------------------------------
@@ -79,3 +84,14 @@ if cfg.addIClamp:
             'conds': {'pop': pop},
             'sec': f'{sec}_0', # target 'soma_0'
             'loc': loc}
+
+#------------------------------------------------------------------------------
+# Connectivity rules
+#------------------------------------------------------------------------------
+
+# netParams.connParams['all'] = {
+#         'preConds': {'pop': cfg.allpops},
+#         'postConds': {'pop': cfg.allpops},
+#         'weight':0.01, 
+#         'probability': 0.1 #'0.1*exp(-1/probLengthConst)',
+# }

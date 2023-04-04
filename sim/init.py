@@ -30,11 +30,11 @@ sim.initialize(
 sim.net.createPops()               			# instantiate network populations
 sim.net.createCells()              			# instantiate network cells based on defined populations
 
-r = 1  # radius
-center = (0.5, 0.5) # center
+r = 5  # radius
+center = (50, 50) # center in um
 theta = np.linspace(0, 2*np.pi, len(sim.net.cells))  # angle 
-x = center[0] + r*np.cos(theta) # x-values
-z = center[1] + r*np.sin(theta) # z-values
+x = center[0] + r*np.cos(theta) # x-values in um
+z = center[1] + r*np.sin(theta) # z-values in um
 
 # print(sim.rank,sim.net.cells[0].tags)
 for i, metype in enumerate(sim.net.cells):
@@ -42,9 +42,9 @@ for i, metype in enumerate(sim.net.cells):
     metype.tags['xnorm'] = 0.5
     metype.tags['ynorm'] = 0.5
     metype.tags['znorm'] = 0.5
-    metype.tags['x'] = x[i]
+    metype.tags['x'] = x[i]     # x positions in um
     metype.tags['y'] = 50.0
-    metype.tags['z'] = z[i]
+    metype.tags['z'] = z[i]     # z positions in um
 # print(sim.rank,sim.net.cells[0].tags)
 
 sim.net.connectCells()            			# create connections between cells based on params
