@@ -30,7 +30,7 @@ sim.initialize(
 sim.net.createPops()               			# instantiate network populations
 sim.net.createCells()              			# instantiate network cells based on defined populations
 
-r = 5  # radius
+r = 50  # radius
 center = (50, 50) # center in um
 theta = np.linspace(0, 2*np.pi, len(sim.net.cells))  # angle 
 x = center[0] + r*np.cos(theta) # x-values in um
