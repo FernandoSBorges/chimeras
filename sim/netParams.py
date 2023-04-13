@@ -100,14 +100,31 @@ netParams.synMechParams['NMDA'] = {
     'tau2': 5.0,
     'e': 0
     }
+# netParams.synMechParams['NMDA'] = {'mod': 'Exp2Syn', 'tau1': 15.0, 'tau2': 150.0, 'e': 0.0}
+#netParams.synMechParams['AMPA'] = {'mod': 'Exp2Syn', 'tau1': 0.1, 'tau2': 5.0, 'e': 0.0}
+#ESynMech    = ['AMPA', 'NMDA']
 
 #------------------------------------------------------------------------------
 # Connectivity rules
 #------------------------------------------------------------------------------
-netParams.connParams['all'] = {
-        'preConds': {'pop': cfg.allpops},
-        'postConds': {'pop': cfg.allpops},
-        'synMech': ['NMDA'],
-        'weight':0.05, 
-        'probability': 0.02 #'0.1*exp(-1/probLengthConst)',
-}
+
+a0 = 1.0
+gamma = 0.0
+radius = 20.0 # neuronal distance * number of neighbors * (circlecorrection)
+prob = '%s*exp(-%s*(dist_2D))*(dist_2D<%s)' % (a0,x0,radius)
+
+netParams.connParams['EE'] = { 
+    'preConds': {'pop': cfg.allpops},
+    'postConds': {'pop': cfg.allpops},
+    'synMech': 'AMPA', # ESynMech,
+    'probability': prob, 
+    'weight': gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
+    }
+
+# netParams.connParams['all'] = {
+#         'preConds': {'pop': cfg.allpops},
+#         'postConds': {'pop': cfg.allpops},
+#         'synMech': ['NMDA'],
+#         'weight':0.05, 
+#         'probability': 0.02 #'0.1*exp(-1/probLengthConst)',
+# }
