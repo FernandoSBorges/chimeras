@@ -86,5 +86,5 @@ cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ##
 cfg.backupCfgFile = None 		##  
 cfg.gatherOnlySimData = False	##  
 cfg.saveCellSecs = False			##  
-cfg.saveCellConns = False		##
+cfg.saveCellConns = True		##
 

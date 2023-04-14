@@ -59,12 +59,12 @@ for cellName in cfg.allcells:
 #------------------------------------------------------------------------------
 
 # for ith-pop create pop with ith-cell of allcells 
-
+numCells = 50
 for i, pop in enumerate(cfg.allpops):
     netParams.popParams[pop] = {
         'cellType': cfg.allcells[i],
         'cellModel': 'HH_full',
-        'numCells': 25
+        'numCells': numCells
     }
 
 #------------------------------------------------------------------------------
@@ -108,17 +108,30 @@ netParams.synMechParams['NMDA'] = {
 # Connectivity rules
 #------------------------------------------------------------------------------
 
-a0 = 1.0
-gamma = 0.0
-radius = 20.0 # neuronal distance * number of neighbors * (circlecorrection)
-prob = '%s*exp(-%s*(dist_2D))*(dist_2D<%s)' % (a0,x0,radius)
+## Spatial disposition of neurons
+r = 50  # radius of circle
+center = (50, 50) # center in um
+theta = np.linspace(0, 2*np.pi, numCells)  # angle 
+x = center[0] + r*np.cos(theta) # x-values in um
+z = center[1] + r*np.sin(theta) # z-values in um
+dist_between_neurons = np.sqrt((x[1] - x[0])**2 + (z[1] - z[0])**2)
+
+a0 = 1.0 # weight of probability
+x0 = 1.
+n_neighbors = 2
+
+# number of neighbors * neuronal distance * (circlecorrection)
+radius_conns = n_neighbors * dist_between_neurons
+
+#'%s*exp(-%s*(dist_2D))*(dist_2D<%s)' % (a0, x0, radius_conns)
+prob = '%s * (dist_2D<%s)' % (a0, radius_conns)
 
 netParams.connParams['EE'] = { 
     'preConds': {'pop': cfg.allpops},
     'postConds': {'pop': cfg.allpops},
-    'synMech': 'AMPA', # ESynMech,
+    'synMech': 'NMDA', #'AMPA', # ESynMech,
     'probability': prob, 
-    'weight': gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
+    'weight': 0.001 #gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
     }
 
 # netParams.connParams['all'] = {
@@ -126,5 +139,5 @@ netParams.connParams['EE'] = {
 #         'postConds': {'pop': cfg.allpops},
 #         'synMech': ['NMDA'],
 #         'weight':0.05, 
-#         'probability': 0.02 #'0.1*exp(-1/probLengthConst)',
+#         'probability': 1#0.02 #'0.1*exp(-1/probLengthConst)',
 # }
