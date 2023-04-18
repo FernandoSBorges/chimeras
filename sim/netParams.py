@@ -59,7 +59,7 @@ for cellName in cfg.allcells:
 #------------------------------------------------------------------------------
 
 # for ith-pop create pop with ith-cell of allcells 
-numCells = 50
+numCells = 100
 for i, pop in enumerate(cfg.allpops):
     netParams.popParams[pop] = {
         'cellType': cfg.allcells[i],
@@ -101,8 +101,8 @@ netParams.synMechParams['NMDA'] = {
     'e': 0
     }
 # netParams.synMechParams['NMDA'] = {'mod': 'Exp2Syn', 'tau1': 15.0, 'tau2': 150.0, 'e': 0.0}
-#netParams.synMechParams['AMPA'] = {'mod': 'Exp2Syn', 'tau1': 0.1, 'tau2': 5.0, 'e': 0.0}
-#ESynMech    = ['AMPA', 'NMDA']
+netParams.synMechParams['AMPA'] = {'mod': 'Exp2Syn', 'tau1': 0.1, 'tau2': 5.0, 'e': 0.0}
+ESynMech    = ['AMPA', 'NMDA']
 
 #------------------------------------------------------------------------------
 # Connectivity rules
@@ -116,7 +116,7 @@ x = center[0] + r*np.cos(theta) # x-values in um
 z = center[1] + r*np.sin(theta) # z-values in um
 dist_between_neurons = np.sqrt((x[1] - x[0])**2 + (z[1] - z[0])**2)
 
-a0 = 1.0 # weight of probability
+a0 = 1. # weight of probability
 x0 = 1.
 n_neighbors = 2
 
@@ -129,9 +129,9 @@ prob = '%s * (dist_2D<%s)' % (a0, radius_conns)
 netParams.connParams['EE'] = { 
     'preConds': {'pop': cfg.allpops},
     'postConds': {'pop': cfg.allpops},
-    'synMech': 'NMDA', #'AMPA', # ESynMech,
+    'synMech': ESynMech, # NMDA, AMPA
     'probability': prob, 
-    'weight': 0.001 #gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
+    'weight': 0.0005 #gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
     }
 
 # netParams.connParams['all'] = {
@@ -141,3 +141,4 @@ netParams.connParams['EE'] = {
 #         'weight':0.05, 
 #         'probability': 1#0.02 #'0.1*exp(-1/probLengthConst)',
 # }
+

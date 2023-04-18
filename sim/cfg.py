@@ -28,7 +28,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 3000.0 ## Duration of the sim, in ms  
+cfg.duration = 2000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.01
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -45,7 +45,7 @@ cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
 cfg.allpops = []
-cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
+cfg.allcells = ['sPYb']#, 'sIN', 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 
 for cell in cfg.allcells:
     cfg.allpops.append(f'pop_{cell}')
@@ -53,8 +53,9 @@ for cell in cfg.allcells:
 #------------------------------------------------------------------------------
 # Analysis and plotting 
 #------------------------------------------------------------------------------
-cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':False, 'figSize':(10, 30), 'fontSize':12}
+cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':True, 'figSize':(10, 4), 'fontSize':12}
 cfg.analysis['plot2Dnet']   = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'showConns': True, 'figSize': (12,12), 'view': 'xz', 'fontSize':12} 
+cfg.analysis['plotSpikeStats'] = {'include': cfg.allpops, 'stats':['rate', 'isicv', 'sync'], 'saveFig': True, 'showFig': False, 'figSize': (12,12),  'fontSize':12}
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -63,7 +64,7 @@ cfg.addIClamp = 1
 
 delaystim = 200
 durationstim = 1000
-step1_current = 0.18
+step1_current = 0.08
 
 cfg.IClamp0 =   {'pop': cfg.allpops[0], 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}    
 
