@@ -33,7 +33,7 @@ netParams.sizeY = 100.0 # y-dimension (vertical height or cortical depth) size i
 netParams.sizeZ = 100.0 # z-dimension (horizontal depth) size in um
 netParams.shape = 'cylinder' # cylindrical (column-like) volume
    
-netParams.propVelocity = 100.0    # propagation velocity (um/ms)
+netParams.propVelocity = 300.0    # propagation velocity (um/ms)
 netParams.probLengthConst = 10.0 # length constant for conn probability (um)
 
 
@@ -59,12 +59,11 @@ for cellName in cfg.allcells:
 #------------------------------------------------------------------------------
 
 # for ith-pop create pop with ith-cell of allcells 
-numCells = 100
 for i, pop in enumerate(cfg.allpops):
     netParams.popParams[pop] = {
         'cellType': cfg.allcells[i],
         'cellModel': 'HH_full',
-        'numCells': numCells
+        'numCells': cfg.cellNumber
     }
 
 #------------------------------------------------------------------------------
@@ -94,13 +93,8 @@ if cfg.addIClamp:
 #   synaptic mechanism parameters for a simple excitatory synaptic mechanism labeled NMDA,
 #   implemented using the Exp2Syn model, with rise time (tau1) of 0.1 ms, decay time (tau2)
 #   of 5 ms, and equilibrium potential (e) of 0 mV
-netParams.synMechParams['NMDA'] = {
-    'mod': 'Exp2Syn',
-    'tau1': 0.1,
-    'tau2': 5.0,
-    'e': 0
-    }
-# netParams.synMechParams['NMDA'] = {'mod': 'Exp2Syn', 'tau1': 15.0, 'tau2': 150.0, 'e': 0.0}
+
+netParams.synMechParams['NMDA'] = {'mod': 'Exp2Syn', 'tau1': 15.0, 'tau2': 150.0, 'e': 0.0}
 netParams.synMechParams['AMPA'] = {'mod': 'Exp2Syn', 'tau1': 0.1, 'tau2': 5.0, 'e': 0.0}
 ESynMech    = ['AMPA', 'NMDA']
 
@@ -111,7 +105,7 @@ ESynMech    = ['AMPA', 'NMDA']
 ## Spatial disposition of neurons
 r = 50  # radius of circle
 center = (50, 50) # center in um
-theta = np.linspace(0, 2*np.pi, numCells)  # angle 
+theta = np.linspace(0, 2*np.pi, cfg.cellNumber)  # angle 
 x = center[0] + r*np.cos(theta) # x-values in um
 z = center[1] + r*np.sin(theta) # z-values in um
 dist_between_neurons = np.sqrt((x[1] - x[0])**2 + (z[1] - z[0])**2)
@@ -129,16 +123,7 @@ prob = '%s * (dist_2D<%s)' % (a0, radius_conns)
 netParams.connParams['EE'] = { 
     'preConds': {'pop': cfg.allpops},
     'postConds': {'pop': cfg.allpops},
-    'synMech': ESynMech, # NMDA, AMPA
+    'synMech': 'AMPA', # NMDA, AMPA
     'probability': prob, 
-    'weight': 0.0005 #gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
+    'weight': cfg.gex #gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
     }
-
-# netParams.connParams['all'] = {
-#         'preConds': {'pop': cfg.allpops},
-#         'postConds': {'pop': cfg.allpops},
-#         'synMech': ['NMDA'],
-#         'weight':0.05, 
-#         'probability': 1#0.02 #'0.1*exp(-1/probLengthConst)',
-# }
-

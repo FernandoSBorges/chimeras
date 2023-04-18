@@ -44,8 +44,12 @@ cfg.includeParamsLabel = False
 cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
+#------------------------------------------------------------------------------
+# Cells
+#------------------------------------------------------------------------------
+cfg.cellNumber = 100
 cfg.allpops = []
-cfg.allcells = ['sPYb']#, 'sIN', 'sPYbr', 'sPYb', 'sPYr', 'sPY']
+cfg.allcells = ['sPY']#, 'sIN', 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 
 for cell in cfg.allcells:
     cfg.allpops.append(f'pop_{cell}')
@@ -53,7 +57,7 @@ for cell in cfg.allcells:
 #------------------------------------------------------------------------------
 # Analysis and plotting 
 #------------------------------------------------------------------------------
-cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':True, 'figSize':(10, 4), 'fontSize':12}
+cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True,'showFig': False, 'oneFigPer':'trace', 'axis': False, 'subtitles':False, 'legend':False, 'overlay':False, 'figSize':(36, 24), 'fontSize':2}
 cfg.analysis['plot2Dnet']   = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'showConns': True, 'figSize': (12,12), 'view': 'xz', 'fontSize':12} 
 cfg.analysis['plotSpikeStats'] = {'include': cfg.allpops, 'stats':['rate', 'isicv', 'sync'], 'saveFig': True, 'showFig': False, 'figSize': (12,12),  'fontSize':12}
 
@@ -78,14 +82,30 @@ cfg.recordStim = True
 cfg.recordTime = True
 cfg.recordStep = 0.1            
 
-cfg.simLabel = f'Pospischil2008_RS_{cfg.allcells[0]}'
-cfg.saveFolder = f'../data/{cfg.allcells[0]}'
+# cfg.simLabel = f'Pospischil2008_RS_{cfg.allcells[0]}'
+# cfg.saveFolder = f'../data/{cfg.allcells[0]}'
+# # cfg.filename =                	## Set file output name
+# cfg.savePickle = False         	## Save pkl file
+# cfg.saveJson = True           	## Save json file
+# cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ## 
+# cfg.backupCfgFile = None 		##  
+# cfg.gatherOnlySimData = False	##  
+# cfg.saveCellSecs = False			##  
+# cfg.saveCellConns = True		##
+
+cfg.simLabel = 'v0_batch0'
+cfg.saveFolder = '../data/'+cfg.simLabel
 # cfg.filename =                	## Set file output name
 cfg.savePickle = False         	## Save pkl file
-cfg.saveJson = True           	## Save json file
+cfg.saveJson = False           	## Save json file
 cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ## 
 cfg.backupCfgFile = None 		##  
 cfg.gatherOnlySimData = False	##  
 cfg.saveCellSecs = False			##  
 cfg.saveCellConns = True		##
+
+#------------------------------------------------------------------------------
+# Net
+#------------------------------------------------------------------------------
+cfg.gex = 0.005
 

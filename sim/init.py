@@ -16,11 +16,6 @@ from netpyne import sim
 import pickle, json
 import numpy as np
 
-import matplotlib; matplotlib.use('Agg')  # to avoid graphics error in servers
-import seaborn as sns
-from matplotlib import pyplot as plt
-
-
 # cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault='netParams.py')
 cfg, netParams = sim.readCmdLineArgs()
 
@@ -54,3 +49,7 @@ sim.runSim()                      			# run parallel Neuron simulation
 sim.gatherData()                  			# gather spiking data and cell info from each node
 sim.saveData()                    			# save params, cell info and sim output to file (pickle,mat,txt,etc)#
 sim.analysis.plotData()         			# plot spike raster etc
+
+sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:9]+'/'+cfg.simLabel + '_rate.json', stats=['rate'], saveFig=True)
+sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:9]+'/'+cfg.simLabel + '_CV.json', stats=['isicv'], saveFig=True)
+sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:9]+'/'+cfg.simLabel + '_sync.json', stats=['sync'], saveFig=True);
