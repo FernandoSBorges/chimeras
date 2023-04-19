@@ -1,0 +1,17 @@
+{
+    "include": [
+        "sPY"
+    ],
+    "saveData": "../data/v0_batch0/v0_batch0_2_0_sync.json",
+    "saveFig": false,
+    "showFig": true,
+    "statData": [
+        [
+            0.9920175148057185
+        ]
+    ],
+    "timeRange": [
+        0,
+        12000.0
+    ]
+}

@@ -1,0 +1,115 @@
+numprocs=2
+
+Reading command line arguments using syntax: python file.py [simConfig=filepath] [netParams=filepath]
+Importing simConfig from ../data/v0_batch0/v0_batch0_0_0_cfg.json
+Loading file ../data/v0_batch0/v0_batch0_0_0_cfg.json ... 
+Loading simConfig...
+Importing netParams from ../data/v0_batch0/v0_batch0_netParams.py
+ 
+ << defining template for one-compartment sPY cell >> 
+ 
+Loading cell sPY
+ 
+<< sPY: passive, INa, IK, IM inserted >>
+ 
+Creating a generic sPY cell from Pospischil2008 template
+
+Start time:  2023-04-19 12:39:08.367874
+
+Reading command line arguments using syntax: python file.py [simConfig=filepath] [netParams=filepath]
+Importing simConfig from ../data/v0_batch0/v0_batch0_0_0_cfg.json
+Loading file ../data/v0_batch0/v0_batch0_0_0_cfg.json ... 
+Loading simConfig...
+Importing netParams from ../data/v0_batch0/v0_batch0_netParams.py
+ 
+ << defining template for one-compartment sPY cell >> 
+ 
+Loading cell sPY
+ 
+<< sPY: passive, INa, IK, IM inserted >>
+ 
+Creating a generic sPY cell from Pospischil2008 template
+
+Creating network of 2 cell populations on 2 hosts...
+  Number of cells on node 0: 55 
+  Number of cells on node 1: 55 
+  Done; cell creation time = 0.05 s.
+Making connections...
+  Number of connections on node 1: 348 
+  Number of connections on node 0: 342 
+  Done; cell connection time = 0.28 s.
+Adding stims...
+  Number of stims on node 1: 50 
+  Number of stims on node 0: 50 
+  Done; cell stims creation time = 0.01 s.
+Recording 60 traces of 2 types on node 0
+Recording 60 traces of 2 types on node 1
+0.0s
+
+Running simulation using NEURON for 12000.0 ms...
+0.5s
+1.0s
+1.5s
+2.0s
+2.5s
+3.0s
+3.5s
+4.0s
+4.5s
+5.0s
+5.5s
+6.0s
+6.5s
+7.0s
+7.5s
+8.0s
+8.5s
+9.0s
+9.5s
+10.0s
+10.5s
+11.0s
+11.5s
+  Done; run time = 182.91 s; real-time ratio: 0.07.
+
+Gathering data...
+  Done; gather time = 0.32 s.
+
+Analyzing...
+Plotting spike stats...
+  Cells: 110
+  Connections: 690 (6.27 per cell)
+  Spikes: 10524 (7.97 Hz)
+  Simulated time: 12.0 s; 2 workers
+  Run time: 182.91 s
+   sPY : 8.170 Hz
+   initialspikes : 6.000 Hz
+Saving output as ../data/v0_batch0/v0_batch0_0_0_data.json ... 
+  There was an exception in plotSpikeStats(): 
+    'Network' object has no attribute 'allCells' 
+    (<class 'AttributeError'>, AttributeError("'Network' object has no attribute 'allCells'"), <traceback object at 0x7f949049e400>)
+Plotting spike stats...
+  There was an exception in plotSpikeStats(): 
+    'Network' object has no attribute 'allCells' 
+    (<class 'AttributeError'>, AttributeError("'Network' object has no attribute 'allCells'"), <traceback object at 0x7f94904f5480>)
+Plotting spike stats...
+  There was an exception in plotSpikeStats(): 
+    'Network' object has no attribute 'allCells' 
+    (<class 'AttributeError'>, AttributeError("'Network' object has no attribute 'allCells'"), <traceback object at 0x7f94904356c0>)
+Finished saving!
+  Done; saving time = 4.52 s.
+Plotting 2D representation of network cell locations and connections...
+Preparing spike data...
+Plotting raster...
+Plotting recorded cell traces ... trace
+  Done; plotting time = 6.42 s
+
+Total time = 194.92 s
+Plotting spike stats...
+Saving figure data as ../data/v0_batch0/v0_batch0_0_0_rate.json ... 
+Plotting spike stats...
+Saving figure data as ../data/v0_batch0/v0_batch0_0_0_CV.json ... 
+Plotting spike stats...
+Saving figure data as ../data/v0_batch0/v0_batch0_0_0_sync.json ... 
+
+ 	 v0_batch0_0_0 	 FR = 8.170 Hz 	 CV = 0.101 	 sync = 0.992 

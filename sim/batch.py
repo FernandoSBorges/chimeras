@@ -16,7 +16,7 @@ def custom():
     params = specs.ODict()
     
     # params[('seeds', 'conn')] =  [1] 
-    params[('gex')] = [0.0005, 0.0006, 0.0007, 0.0008]
+    params[('gex')] = [0.0, 0.0001, 0.0002]
     params[('IClamp0', 'amp')] = [0.12] 
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
