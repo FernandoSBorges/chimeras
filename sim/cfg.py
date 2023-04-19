@@ -4,7 +4,7 @@ cfg.py
 Simulation configuration for ...
 This file has sim configs as well as specification for parameterized values in netParams.py 
 
-Contributors: conradinho@gmail.com, fernandodasilvaborges@gmail.com
+Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
 """
 
 
@@ -20,6 +20,8 @@ cfg = specs.SimConfig()
 #
 #------------------------------------------------------------------------------
 
+cfg.simType = 'Pospischil2008_RS'
+
 cfg.coreneuron = False
 
 rootFolder = os.getcwd()
@@ -28,7 +30,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 3000.0 ## Duration of the sim, in ms  
+cfg.duration = 2000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.01
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -44,49 +46,55 @@ cfg.includeParamsLabel = False
 cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
-cfg.allpops = ['PY_RS']
-cfg.allcells = ['sPY', ]#'sIN', 'sPYbr', 'sPYb', 'sPYr']
+cfg.allpops = ['sPY']
+cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
+
+#------------------------------------------------------------------------------
+# Net
+#------------------------------------------------------------------------------
+cfg.cellNumber = 100
+cfg.gex = 0.0005
+
+cfg.n_neighbors = 10
+
+#------------------------------------------------------------------------------
+# Record Data 
+#------------------------------------------------------------------------------
+cfg.cellsrec = 2
+if cfg.cellsrec == 0:  cfg.recordCells = cfg.allpops # record all cells
+elif cfg.cellsrec == 1: cfg.recordCells = [(pop,0) for pop in cfg.allpops] # record one cell of each pop
+elif cfg.cellsrec == 2: cfg.recordCells = [(pop,ii) for pop in cfg.allpops for ii in range(int(cfg.cellNumber/10))] # record 10 cells of each pop
+
+
+cfg.recordTraces = {'V_soma': {'sec':'soma_0', 'loc':0.5, 'var':'v'}}  ## Dict with traces to record
+cfg.recordStim = True
+cfg.recordTime = True
+cfg.recordStep = 0.1            
+
+cfg.simLabel = 'v0_batch0'
+cfg.saveFolder = '../data/'+cfg.simLabel
+# cfg.filename =                	## Set file output name
+cfg.savePickle = False         	## Save pkl file
+cfg.saveJson = True           	## Save json file
+cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ## 
+cfg.backupCfgFile = None 		##  
+cfg.gatherOnlySimData = False	##  
+cfg.saveCellSecs = False			##  
+cfg.saveCellConns = True		##
+
 #------------------------------------------------------------------------------
 # Analysis and plotting 
 #------------------------------------------------------------------------------
-cfg.analysis['plotTraces'] = {'include': cfg.allcells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':False, 'figSize':(15, 9), 'fontSize':12}
-#cfg.analysis['plot2Dnet']   = {'include': cfg.allcells, 'saveFig': True, 'showConns': False, 'figSize': (12,12), 'view': 'xz', 'fontSize':12} 
+# cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':True, 'figSize':(10, 4), 'fontSize':12}
+# cfg.analysis['plot2Dnet']   = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'showConns': True, 'figSize': (12,12), 'view': 'xz', 'fontSize':12} 
+# cfg.analysis['plotSpikeStats'] = {'include': cfg.allpops, 'stats':['rate', 'isicv', 'sync'],'saveData': True, 'saveFig': True, 'showFig': False, 'figSize': (12,12), 'fontSize':12}
+cfg.analysis['plotTraces'] = {'include': cfg.recordCells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'axis': False, 'subtitles':False, 'legend':False, 'overlay':False, 'figSize':(36, 24), 'fontSize':2}
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False, 'orderInverse': True, 'timeRange': [0,cfg.duration], 
+'figSize': (14,12), 'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300}      	## Plot a raster
 
 #------------------------------------------------------------------------------
 # Current inputs 
 #------------------------------------------------------------------------------
 cfg.addIClamp = 1
 
-delaystim = 500
-durationstim = 2000
-step1_current = 0.7
-        
-cfg.IClamp1 = {'pop': 'sPY', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp2 = {'pop': 'sIN', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp3 = {'pop': 'sPYbr', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp4 = {'pop': 'sPYb', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-cfg.IClamp5 = {'pop': 'sPYr', 'sec': 'soma', 'loc': 0.5, 'start': delaystim, 'dur': durationstim, 'amp': step1_current}
-
-
-#------------------------------------------------------------------------------
-# Record Data 
-#------------------------------------------------------------------------------
-
-cfg.recordCells = cfg.allcells  # which cells to record from
-cfg.recordTraces = {'V_soma': {'sec':'soma_0', 'loc':0.5, 'var':'v'}}  ## Dict with traces to record
-cfg.recordStim = True
-cfg.recordTime = True
-cfg.recordStep = 0.1            
-
-cfg.simLabel = f'Pospischil2008_RS_stim_{step1_current}nA'
-cfg.saveFolder = '../figures/'
-# cfg.filename =                	## Set file output name
-cfg.savePickle = False         	## Save pkl file
-cfg.saveJson = False           	## Save json file
-cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ## 
-cfg.backupCfgFile = None 		##  
-cfg.gatherOnlySimData = False	##  
-cfg.saveCellSecs = False			##  
-cfg.saveCellConns = False		##  
-
-
+cfg.IClamp0 =   {'pop': cfg.allpops[0], 'sec': 'soma_0', 'loc': 0.5, 'start': 0.0, 'dur': 2000.0, 'amp': 0.12}    

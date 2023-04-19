@@ -73,7 +73,7 @@ proc init() { local v_potassium, v_sodium
 	cai = 2.4e-4 
 	cao = 2 
 	eca = 120 
-	gcabar_ical = 1e-4
+	gcabar_ical = 1e-4 // glbar 
 
 
   }

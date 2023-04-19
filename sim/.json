@@ -1,0 +1,17 @@
+{
+    "include": [
+        "pop_sPY"
+    ],
+    "saveData": ".json",
+    "saveFig": true,
+    "showFig": false,
+    "statData": [
+        [
+            1.0
+        ]
+    ],
+    "timeRange": [
+        0,
+        2000.0
+    ]
+}

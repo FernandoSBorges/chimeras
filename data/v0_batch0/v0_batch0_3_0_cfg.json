@@ -1,0 +1,225 @@
+{
+    "simConfig": {
+        "IClamp0": {
+            "amp": 0.12,
+            "dur": 2000.0,
+            "loc": 0.5,
+            "pop": "sPY",
+            "sec": "soma_0",
+            "start": 0.0
+        },
+        "addIClamp": 1,
+        "addSynMechs": true,
+        "allcells": [
+            "sPY"
+        ],
+        "allowConnsWithWeight0": true,
+        "allowSelfConns": false,
+        "allpops": [
+            "sPY"
+        ],
+        "analysis": {
+            "plotRaster": {
+                "dpi": 300,
+                "figSize": [
+                    14,
+                    12
+                ],
+                "include": [
+                    "sPY"
+                ],
+                "lw": 0.3,
+                "marker": ".",
+                "markerSize": 10,
+                "orderInverse": true,
+                "popRates": false,
+                "saveFig": true,
+                "showFig": false,
+                "timeRange": [
+                    0,
+                    2000.0
+                ]
+            },
+            "plotTraces": {
+                "axis": false,
+                "figSize": [
+                    36,
+                    24
+                ],
+                "fontSize": 2,
+                "include": [
+                    [
+                        "sPY",
+                        0
+                    ],
+                    [
+                        "sPY",
+                        1
+                    ],
+                    [
+                        "sPY",
+                        2
+                    ],
+                    [
+                        "sPY",
+                        3
+                    ],
+                    [
+                        "sPY",
+                        4
+                    ],
+                    [
+                        "sPY",
+                        5
+                    ],
+                    [
+                        "sPY",
+                        6
+                    ],
+                    [
+                        "sPY",
+                        7
+                    ],
+                    [
+                        "sPY",
+                        8
+                    ],
+                    [
+                        "sPY",
+                        9
+                    ]
+                ],
+                "legend": false,
+                "oneFigPer": "trace",
+                "overlay": false,
+                "saveFig": true,
+                "showFig": false,
+                "subtitles": false
+            }
+        },
+        "backupCfgFile": null,
+        "cache_efficient": true,
+        "cellNumber": 100,
+        "cellsrec": 2,
+        "checkErrors": false,
+        "compactConnFormat": false,
+        "connRandomSecFromList": true,
+        "coreneuron": false,
+        "createNEURONObj": true,
+        "createPyStruct": true,
+        "cvode_active": false,
+        "cvode_atol": 1e-06,
+        "distributeSynsUniformly": true,
+        "dt": 0.01,
+        "dump_coreneuron_model": false,
+        "duration": 2000.0,
+        "filename": "model_output",
+        "gatherOnlySimData": false,
+        "gex": 0.0008,
+        "gpu": false,
+        "hParams": {
+            "celsius": 34,
+            "v_init": -65
+        },
+        "includeParamsLabel": false,
+        "invertedYCoord": true,
+        "n_neighbors": 10,
+        "oneSynPerNetcon": true,
+        "printPopAvgRates": true,
+        "printRunTime": 0.5,
+        "printSynsAfterRule": false,
+        "pt3dRelativeToCellLocation": true,
+        "rand123GlobalIndex": null,
+        "random123": false,
+        "recordCells": [
+            [
+                "sPY",
+                0
+            ],
+            [
+                "sPY",
+                1
+            ],
+            [
+                "sPY",
+                2
+            ],
+            [
+                "sPY",
+                3
+            ],
+            [
+                "sPY",
+                4
+            ],
+            [
+                "sPY",
+                5
+            ],
+            [
+                "sPY",
+                6
+            ],
+            [
+                "sPY",
+                7
+            ],
+            [
+                "sPY",
+                8
+            ],
+            [
+                "sPY",
+                9
+            ]
+        ],
+        "recordCellsSpikes": -1,
+        "recordDipole": false,
+        "recordDipolesHNN": false,
+        "recordLFP": [],
+        "recordStep": 0.1,
+        "recordStim": true,
+        "recordTime": true,
+        "recordTraces": {
+            "V_soma": {
+                "loc": 0.5,
+                "sec": "soma_0",
+                "var": "v"
+            }
+        },
+        "saveCSV": false,
+        "saveCellConns": true,
+        "saveCellSecs": false,
+        "saveDat": false,
+        "saveDataInclude": [
+            "simConfig",
+            "netParams",
+            "simData"
+        ],
+        "saveDipoleCells": false,
+        "saveDipolePops": false,
+        "saveDpk": false,
+        "saveFolder": "../data/v0_batch0",
+        "saveHDF5": false,
+        "saveJson": true,
+        "saveLFPCells": false,
+        "saveLFPPops": false,
+        "saveMat": false,
+        "savePickle": false,
+        "saveTiming": false,
+        "seeds": {
+            "cell": 1,
+            "conn": 1,
+            "loc": 1,
+            "stim": 1
+        },
+        "simLabel": "v0_batch0_3_0",
+        "simType": "Pospischil2008_RS",
+        "timestampFilename": false,
+        "timing": true,
+        "tstop": 1000.0,
+        "use_fast_imem": false,
+        "validateNetParams": false,
+        "verbose": false
+    }
+}

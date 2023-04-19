@@ -1,0 +1,74 @@
+numprocs=2
+
+Reading command line arguments using syntax: python file.py [simConfig=filepath] [netParams=filepath]
+Importing simConfig from ../data/v0_batch0/v0_batch0_3_0_cfg.json
+Loading file ../data/v0_batch0/v0_batch0_3_0_cfg.json ... 
+Loading simConfig...
+Importing netParams from ../data/v0_batch0/v0_batch0_netParams.py
+ 
+ << defining template for one-compartment sPY cell >> 
+ 
+Loading cell sPY
+ 
+<< sPY: passive, INa, IK, IM inserted >>
+ 
+Creating a generic sPY cell from Pospischil2008 template
+
+Reading command line arguments using syntax: python file.py [simConfig=filepath] [netParams=filepath]
+Importing simConfig from ../data/v0_batch0/v0_batch0_3_0_cfg.json
+Loading file ../data/v0_batch0/v0_batch0_3_0_cfg.json ... 
+Loading simConfig...
+Importing netParams from ../data/v0_batch0/v0_batch0_netParams.py
+ 
+ << defining template for one-compartment sPY cell >> 
+ 
+Loading cell sPY
+ 
+<< sPY: passive, INa, IK, IM inserted >>
+ 
+Creating a generic sPY cell from Pospischil2008 template
+
+Start time:  2023-04-18 18:25:37.764472
+
+Creating network of 1 cell populations on 2 hosts...
+  Number of cells on node 0: 50 
+  Number of cells on node 1: 50 
+  Done; cell creation time = 0.05 s.
+Making connections...
+  Number of connections on node 1: 1050 
+  Number of connections on node 0: 1050 
+  Done; cell connection time = 0.84 s.
+Adding stims...
+  Number of stims on node 0: 50 
+  Number of stims on node 1: 50 
+  Done; cell stims creation time = 0.09 s.
+Recording 55 traces of 2 types on node 1
+Recording 55 traces of 2 types on node 0
+0.0s
+
+Running simulation using NEURON for 2000.0 ms...
+0.5s
+1.0s
+1.5s
+2.0s
+  Done; run time = 44.58 s; real-time ratio: 0.04.
+
+Gathering data...
+  Done; gather time = 0.19 s.
+
+Analyzing...
+  Cells: 100
+  Connections: 2100 (21.00 per cell)
+  Spikes: 5600 (28.00 Hz)
+  Simulated time: 2.0 s; 2 workers
+  Run time: 44.58 s
+   sPY : 28.000 Hz
+Saving output as ../data/v0_batch0/v0_batch0_3_0_data.json ... 
+Finished saving!
+  Done; saving time = 1.16 s.
+Preparing spike data...
+Plotting raster...
+Plotting recorded cell traces ... trace
+  Done; plotting time = 5.49 s
+
+Total time = 52.57 s
