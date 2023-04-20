@@ -3,7 +3,7 @@ batch.py
 
 Influence if slow potassium and Ca channels in bistable firing patterns using NetPyNE
 
-Contributors: protachevicz@gmail.com, fernandodasilvaborges@gmail.com
+Contributors: conrad.bittencourt@gmail.com, protachevicz@gmail.com, fernandodasilvaborges@gmail.com
 """
 from netpyne.batch import Batch
 from netpyne import specs
@@ -16,8 +16,8 @@ def custom():
     params = specs.ODict()
     
     # params[('seeds', 'conn')] =  [1] 
-    params[('gex')] = [0.0, 0.0001, 0.0002]
-    params[('IClamp0', 'amp')] = [0.12] 
+    params[('gex')] = [0.0005] # 0.0, 0.0001, 0.0002, 0.0003, 0.0004,
+    params[('IClamp0', 'amp')] = [0.12, 0.14, 0.16, 0.18, 0.2] 
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
 

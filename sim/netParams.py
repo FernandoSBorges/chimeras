@@ -70,7 +70,7 @@ for pop in cfg.allpops:
 #------------------------------------------------------------------------------
 # VecStim with spike times
 #------------------------------------------------------------------------------
-spkTimes = [ti for ti in range(1,501,7)] # spikes during 50 ms to create desyncronization
+spkTimes = [ti for ti in range(1, cfg.desyncr_spikes_dur + 1, cfg.desyncr_spikes_period)] # spikes during 50 ms to create desyncronization
 netParams.popParams['initialspikes'] = {'cellModel': 'VecStim', 'numCells': 10, 'spkTimes': spkTimes}  
 
 #------------------------------------------------------------------------------
@@ -124,7 +124,7 @@ netParams.connParams['initialrandom'] = {
     'preConds': {'pop': 'initialspikes'},
     'postConds': {'pop': cfg.allpops},
     'synMech': 'AMPA', # target synaptic mechanism
-    'probability': 0.5, 
+    'probability': 0.25, 
     'weight': 0.0001, 
     'delay': 0.05
     }  
