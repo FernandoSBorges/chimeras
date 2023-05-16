@@ -8,6 +8,13 @@ Contributors: conrad.bittencourt@gmail.com, protachevicz@gmail.com, fernandodasi
 from netpyne.batch import Batch
 from netpyne import specs
 import numpy as np
+import sys
+
+try:
+    from __main__ import cfg  # import SimConfig object with params from parent module
+except:
+    from cfg import cfg
+
 
 # ----------------------------------------------------------------------------------------------
 # Custom
@@ -16,8 +23,16 @@ def custom():
     params = specs.ODict()
     
     # params[('seeds', 'conn')] =  [1] 
-    params[('gex')] = [0.0005] # 0.0, 0.0001, 0.0002, 0.0003, 0.0004,
-    params[('IClamp0', 'amp')] = [0.12, 0.14, 0.16, 0.18, 0.2] 
+    params[('gex')] = [float(sys.argv[3])]  #v1 
+
+    # filtering string received as argv parameter
+    currents = [float(value.replace('[','').replace(']','').replace(',','').replace("'",'')) for value in sys.argv[4:]]
+
+    params[('IClamp0', 'amp')] = np.array(currents) # list of currents
+    
+    # params[('gex')] = gex
+    # params[('IClamp0', 'amp')] = current_ext
+    # params[('n_neighbors')] = [2, 4, 6, 8, 10]
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
 
@@ -61,8 +76,14 @@ def setRunCfg(b, type='mpi_bulletin'):
 # ----------------------------------------------------------------------------------------------
 if __name__ == '__main__': 
     b = custom() #
+    # 
+    version_number = sys.argv[1]
+    batch_number = sys.argv[2]
+    batch_number = batch_number.zfill(4) # fill string with zeros.
 
-    b.batchLabel = 'v0_batch0'  
+    b.batchLabel = f'v{version_number}_batch{batch_number}' #cfg.simLabel  # default: 'v0_batch0'
+        
+    cfg.simLabel = b.batchLabel
     b.saveFolder = '../data/'+b.batchLabel
     b.method = 'grid'
     setRunCfg(b, 'mpi_direct')     # setRunCfg(b, 'mpi_bulletin')

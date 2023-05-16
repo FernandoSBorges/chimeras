@@ -137,5 +137,10 @@ auth.json
 # vscode
 .vscode
 
-
 sim/x86_64
+data/
+data1/
+data2/
+data3/
+organize.py
+run_organize.py

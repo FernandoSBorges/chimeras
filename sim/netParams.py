@@ -71,7 +71,7 @@ for pop in cfg.allpops:
 # VecStim with spike times
 #------------------------------------------------------------------------------
 spkTimes = [ti for ti in range(1, cfg.desyncr_spikes_dur + 1, cfg.desyncr_spikes_period)] # spikes during 50 ms to create desyncronization
-netParams.popParams['initialspikes'] = {'cellModel': 'VecStim', 'numCells': 10, 'spkTimes': spkTimes}  
+netParams.popParams['initialspikes'] = {'cellModel': 'VecStim', 'numCells': cfg.numCellsDesync, 'spkTimes': spkTimes}  
 
 #------------------------------------------------------------------------------
 # Current inputs (IClamp)
@@ -131,7 +131,10 @@ netParams.connParams['initialrandom'] = {
 #------------------------------------------------------------------------------
 # Description
 #------------------------------------------------------------------------------
-netParams.description = """ 
+netParams.description = f""" 
 - Code based: 
-- v0 - 
+- v0 - test
+- v1 - space params: 
+    g_ex = np.round(np.linspace(0.0005, .15,20),4)
+    I_ext = np.arange(0.05,2.05,0.01)
 """
