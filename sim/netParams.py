@@ -119,7 +119,7 @@ netParams.connParams['EE'] = {
     'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
     }
 
-# connect initial spikes
+# # connect initial spikes
 netParams.connParams['initialrandom'] = { 
     'preConds': {'pop': 'initialspikes'},
     'postConds': {'pop': cfg.allpops},
@@ -139,5 +139,5 @@ netParams.description = f"""
     - Analyze the trigger frequency. 
     - i_ext = np.arange(0.02,1.02, 0.01)
 
-- v2 - 
+- v2 - Fix gex=0.0001 and run i_ext=np.arange(0.05, 0.15,0.01) currents
 """
