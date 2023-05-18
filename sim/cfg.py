@@ -30,7 +30,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 1500.0 ## Duration of the sim, in ms  
+cfg.duration = 2500.0 ## Duration of the sim, in ms  
 cfg.dt = 0.01
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -92,17 +92,17 @@ cfg.saveCellConns = False		##
 #     'figSize': (12,12), 'view': 'xz', 'fontSize':12,
 #     }
 
-cfg.analysis['plotTraces'] = {
-    'include': cfg.recordCells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace',
-    'axis': False, 'subtitles':False, 'legend':False, 'overlay':False,
-    'timeRange': [0,cfg.duration], 'figSize':(36, 24), 'fontSize':2
-    }
+# cfg.analysis['plotTraces'] = {
+#     'include': cfg.recordCells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace',
+#     'axis': False, 'subtitles':False, 'legend':False, 'overlay':False,
+#     'timeRange': [0,cfg.duration], 'figSize':(36, 24), 'fontSize':2
+#     }
 
-cfg.analysis['plotRaster'] = {  ## Plot a raster
-    'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False,
-    'orderInverse': True, 'timeRange': [0,cfg.duration],'figSize': (24,12),
-    'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300,
-    }
+# cfg.analysis['plotRaster'] = {  ## Plot a raster
+#     'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False,
+#     'orderInverse': True, 'timeRange': [0,cfg.duration],'figSize': (24,12),
+#     'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300,
+#     }
 
 # cfg.analysis['plotSpikeStats'] = {
 #     'include': cfg.allpops, 'stats':['rate', 'isicv', 'sync'],
