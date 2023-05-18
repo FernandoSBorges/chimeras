@@ -124,17 +124,20 @@ netParams.connParams['initialrandom'] = {
     'preConds': {'pop': 'initialspikes'},
     'postConds': {'pop': cfg.allpops},
     'synMech': 'AMPA', # target synaptic mechanism
-    'probability': 0.25, 
+    'probability': 0.25, #0.25, 
     'weight': 0.0001, 
     'delay': 0.05
-    }  
+   }  
+
 #------------------------------------------------------------------------------
 # Description
 #------------------------------------------------------------------------------
 netParams.description = f""" 
 - Code based: 
 - v0 - test
-- v1 - space params: 
-    g_ex = np.round(np.linspace(0.0005, .15,20),4)
-    I_ext = np.arange(0.05,2.05,0.01)
+- v1 - A PRY neuron with various applied currents.
+    - Analyze the trigger frequency. 
+    - i_ext = np.arange(0.02,1.02, 0.01)
+
+- v2 - 
 """

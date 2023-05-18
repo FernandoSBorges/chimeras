@@ -26,9 +26,10 @@ def custom():
     params[('gex')] = [float(sys.argv[3])]  #v1 
 
     # filtering string received as argv parameter
-    currents = [float(value.replace('[','').replace(']','').replace(',','').replace("'",'')) for value in sys.argv[4:]]
+    arg_currents = [value.replace('[','').replace(']','').replace(',','').replace("'",'') for value in sys.argv[4:]]
+    currents = np.array([float(value) for value in arg_currents if value != '']).astype('float64')
 
-    params[('IClamp0', 'amp')] = np.array(currents) # list of currents
+    params[('IClamp0', 'amp')] = currents # list of currents
     
     # params[('gex')] = gex
     # params[('IClamp0', 'amp')] = current_ext

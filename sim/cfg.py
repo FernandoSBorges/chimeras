@@ -30,7 +30,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 1500.0 ## Duration of the sim, in ms  
+cfg.duration = 2500.0 ## Duration of the sim, in ms  
 cfg.dt = 0.01
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -53,8 +53,8 @@ cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 # Net
 #------------------------------------------------------------------------------
 cfg.cellNumber = 100
-cfg.gex = 0.001
-cfg.n_neighbors = 8
+cfg.gex = 0.0001 # default 0.0005
+cfg.n_neighbors = 0
 
 #------------------------------------------------------------------------------
 # Record Data 
@@ -79,7 +79,7 @@ cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ##
 cfg.backupCfgFile = None 		##  
 cfg.gatherOnlySimData = False	##  
 cfg.saveCellSecs = False			##  
-cfg.saveCellConns = False		##
+cfg.saveCellConns = True		##
 
 #------------------------------------------------------------------------------
 # Analysis and plotting 
@@ -87,21 +87,22 @@ cfg.saveCellConns = False		##
 # cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':True, 'figSize':(10, 4), 'fontSize':12}
 # cfg.analysis['plotSpikeStats'] = {'include': cfg.allpops, 'stats':['rate', 'isicv', 'sync'],'saveData': True, 'saveFig': True, 'showFig': False, 'figSize': (12,12), 'fontSize':12}
 
-# cfg.analysis['plot2Dnet']   = {
-#     'saveFig': True, 'showFig': False, 'showConns': True,
-#     'figSize': (12,12), 'view': 'xz', 'fontSize':12,
-#     }
+cfg.analysis['plot2Dnet']   = {
+    'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'showConns': True,
+    'figSize': (12,12), 'view': 'xz', 'fontSize':12,
+    }
 
-# cfg.analysis['plotTraces'] = {
-#     'include': cfg.recordCells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace',
-#     'axis': False, 'subtitles':False, 'legend':False, 'overlay':False,
-#     'timeRange': [cfg.duration-1000.0,cfg.duration], 'figSize':(36, 24), 'fontSize':2
-#     }
-# cfg.analysis['plotRaster'] = {  ## Plot a raster
-#     'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False,
-#     'orderInverse': True, 'timeRange': [0,cfg.duration],'figSize': (24,12),
-#     'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300,
-#     }
+cfg.analysis['plotTraces'] = {
+    'include': cfg.recordCells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace',
+    'axis': False, 'subtitles':False, 'legend':False, 'overlay':False,
+    'timeRange': [0,cfg.duration], 'figSize':(36, 24), 'fontSize':2
+    }
+
+cfg.analysis['plotRaster'] = {  ## Plot a raster
+    'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False,
+    'orderInverse': True, 'timeRange': [0,cfg.duration],'figSize': (24,12),
+    'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300,
+    }
 
 # cfg.analysis['plotSpikeStats'] = {
 #     'include': cfg.allpops, 'stats':['rate', 'isicv', 'sync'],
@@ -114,10 +115,17 @@ cfg.saveCellConns = False		##
 #------------------------------------------------------------------------------
 cfg.addIClamp = 1
 # IClamp0 to produce spikes during 2000ms
-cfg.IClamp0 =   {'pop': cfg.allpops[0], 'sec': 'soma_0', 'loc': 0.5, 'start': 0.0, 'dur': cfg.duration, 'amp': 0.05}
+cfg.IClamp0 =   {
+    'pop': cfg.allpops[0],
+    'sec': 'soma_0',
+    'loc': 0.5,
+    'start': 0.0,
+    'dur': cfg.duration,
+    'amp': 0.09 #default 0.07
+    }
 
 # spikes during 50 ms to create desyncronization
 # 50ms / 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
-cfg.desyncr_spikes_dur = 300 # defaut 500 = 50 ms
-cfg.numCellsDesync = 60  # numCells to produce desyncronization
+cfg.desyncr_spikes_dur = 500 # defaut 500 = 50 ms
+cfg.numCellsDesync = 70  # numCells to produce desyncronization
