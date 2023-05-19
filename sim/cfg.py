@@ -30,7 +30,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 2500.0 ## Duration of the sim, in ms  
+cfg.duration = 6000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.01
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
