@@ -134,10 +134,15 @@ netParams.connParams['initialrandom'] = {
 #------------------------------------------------------------------------------
 netParams.description = f""" 
 - Code based: 
-- v0 - test
-- v1 - A PRY neuron with various applied currents.
-    - Analyze the trigger frequency. 
-    - i_ext = np.arange(0.02,1.02, 0.01)
+- v0    -   test
+- v1    -   A PRY neuron with various applied currents.
+        -   Analyze the trigger frequency.
+        -   i_ext = np.arange(0.02,1.02, 0.01)
 
-- v2 - Fix gex=0.0001 and run i_ext = np.arange(0.09, 0.51,0.01) currents
+- v2    -   Fix gex=0.0001 and run i_ext = np.arange(0.09, 0.51,0.01) currents
+
+- v3    -   a possible chimera state was identified at gex = 0.0001 | i_ext = 0.21->0.24nA.
+        -   Run: gex = np.arange(0.0001, 0.00044, 0.00002) and i_ext = np.arange(0.14, 0.31, 0.01)
+
+
 """
