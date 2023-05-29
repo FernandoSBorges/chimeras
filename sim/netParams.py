@@ -111,23 +111,23 @@ prob = '(dist_2D<%s)' % (radius_conns)
 
 # print(dist_between_neurons,radius_conns,prob)
 
-netParams.connParams['EE'] = { 
-    'preConds': {'pop': cfg.allpops},
-    'postConds': {'pop': cfg.allpops},
-    'synMech': 'AMPA', 
-    'probability': prob, 
-    'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
-    }
+# netParams.connParams['EE'] = { 
+#     'preConds': {'pop': cfg.allpops},
+#     'postConds': {'pop': cfg.allpops},
+#     'synMech': 'AMPA', 
+#     'probability': prob, 
+#     'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
+#     }
 
 # # connect initial spikes
-netParams.connParams['initialrandom'] = { 
-    'preConds': {'pop': 'initialspikes'},
-    'postConds': {'pop': cfg.allpops},
-    'synMech': 'AMPA', # target synaptic mechanism
-    'probability': 0.25, #0.25, 
-    'weight': 0.0001, 
-    'delay': 0.05
-   }  
+# netParams.connParams['initialrandom'] = { 
+#     'preConds': {'pop': 'initialspikes'},
+#     'postConds': {'pop': cfg.allpops},
+#     'synMech': 'AMPA', # target synaptic mechanism
+#     'probability': 0.25, #0.25, 
+#     'weight': 0.0001, 
+#     'delay': 0.05
+#    }  
 
 #------------------------------------------------------------------------------
 # Description
@@ -137,12 +137,13 @@ netParams.description = f"""
 - v0    -   test
 - v1    -   A PRY neuron with various applied currents.
         -   Analyze the trigger frequency.
-        -   i_ext = np.arange(0.02,1.02, 0.01)
+        -   i_ext = np.arange(0.1,1.1, 0.01)
 
 - v2    -   Fix gex=0.0001 and run i_ext = np.arange(0.09, 0.51,0.01) currents
 
 - v3    -   a possible chimera state was identified at gex = 0.0001 | i_ext = 0.21->0.24nA.
         -   Run: gex = np.arange(0.0001, 0.00044, 0.00002) and i_ext = np.arange(0.14, 0.31, 0.01)
 
+- v4    -   Reproduce a spike the one neuron in figures/Fig1_Pospischil_Minimal-Hodgkin–Huxley.png
 
 """

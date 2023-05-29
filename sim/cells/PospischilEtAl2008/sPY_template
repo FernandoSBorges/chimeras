@@ -44,13 +44,13 @@ proc init() { local v_potassium, v_sodium
   soma {
 	Ra = 100		// geometry 
 	nseg = 1
-	diam = 61.4		// default = 96
-	L = 61.4	// so that area is about 29000 um2
+	diam = 96		// default = 96
+	L = 96	// so that area is about 29000 um2
 	cm = 1
 
 	insert pas		// leak current 
-	e_pas = -70.3	// default -70
-	g_pas = 2.05e-5 //0.0001		// Rin = 34 Meg
+	e_pas = -70	// default -70
+	g_pas = 1e-4//2.05e-5 //0.0001		// Rin = 34 Meg
 
 	// conversion with McC units: 
 	// g(S/cm2) = g(nS)*1e-9/29000e-8
@@ -60,12 +60,12 @@ proc init() { local v_potassium, v_sodium
 	ek = v_potassium
 	ena = v_sodium
 	vtraub_hh2 = -56.2 // -55	// Resting Vm, BJ was -55
-	gnabar_hh2 = 0.056 // 0.05	// McCormick=15 muS, thal was 0.09
-	gkbar_hh2 = 0.006 //0.005	// spike duration of pyr cells
+	gnabar_hh2 = 0.05 // 0.05	// McCormick=15 muS, thal was 0.09
+	gkbar_hh2 = 0.005 //0.005	// spike duration of pyr cells
 
 
 	insert im		// M current 
-	taumax_im = 608  // 1000 ms
+	taumax_im = 1000//608  // 1000 ms
 	gkbar_im = 7.5e-5		// Diego's IM (copyrighted)
 
 //	insert iahp

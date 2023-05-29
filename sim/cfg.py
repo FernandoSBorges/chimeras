@@ -52,9 +52,9 @@ cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 #------------------------------------------------------------------------------
 # Net
 #------------------------------------------------------------------------------
-cfg.cellNumber = 100
+cfg.cellNumber = 1
 cfg.gex = 0.#0001 # default 0.0005
-cfg.n_neighbors = 10
+cfg.n_neighbors = 0
 
 #------------------------------------------------------------------------------
 # Record Data 
@@ -95,7 +95,7 @@ cfg.saveCellConns = False		##
 # cfg.analysis['plotTraces'] = {
 #     'include': cfg.recordCells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace',
 #     'axis': False, 'subtitles':False, 'legend':False, 'overlay':False,
-#     'timeRange': [0,cfg.duration], 'figSize':(36, 24), 'fontSize':2
+#     'timeRange': [cfg.duration - 1000.0 ,cfg.duration], 'figSize':(36, 24), 'fontSize':2
 #     }
 
 # cfg.analysis['plotRaster'] = {  ## Plot a raster
@@ -121,7 +121,7 @@ cfg.IClamp0 =   {
     'loc': 0.5,
     'start': 0.0,
     'dur': cfg.duration,
-    'amp': 0.065 #default 0.07
+    'amp': 0.7 #default 0.07
     }
 
 # spikes during 50 ms to create desyncronization

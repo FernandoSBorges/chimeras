@@ -10,13 +10,13 @@ import os
 import numpy as np
 
 # coupling of elements
-gex = np.arange(0.0001, 0.00044, 0.00002)
+gex = [0.0]
 # external current
-i_ext = np.arange(0.14, 0.31, 0.01)
-currents = np.array_split(i_ext, 4)
+i_ext = i_ext = np.arange(0.1,1.1, 0.01)
+currents = np.array_split(i_ext, 25)
 
 batch = 1
 for g in gex:
     for current in currents:
-        os.system(f'python3 batch.py 3 {batch} {g:.5f} ' + f'{current}')
+        os.system(f'python3 batch.py 1 {batch} {g:.5f} ' + f'{current}')
         batch+=1
