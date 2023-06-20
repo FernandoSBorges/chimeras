@@ -111,23 +111,23 @@ prob = '(dist_2D<%s)' % (radius_conns)
 
 # print(dist_between_neurons,radius_conns,prob)
 
-# netParams.connParams['EE'] = { 
-#     'preConds': {'pop': cfg.allpops},
-#     'postConds': {'pop': cfg.allpops},
-#     'synMech': 'AMPA', 
-#     'probability': prob, 
-#     'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
-#     }
+netParams.connParams['EE'] = { 
+    'preConds': {'pop': cfg.allpops},
+    'postConds': {'pop': cfg.allpops},
+    'synMech': 'AMPA', 
+    'probability': prob, 
+    'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
+    }
 
-# # connect initial spikes
-# netParams.connParams['initialrandom'] = { 
-#     'preConds': {'pop': 'initialspikes'},
-#     'postConds': {'pop': cfg.allpops},
-#     'synMech': 'AMPA', # target synaptic mechanism
-#     'probability': 0.25, #0.25, 
-#     'weight': 0.0001, 
-#     'delay': 0.05
-#    }  
+# connect initial spikes
+netParams.connParams['initialrandom'] = { 
+    'preConds': {'pop': 'initialspikes'},
+    'postConds': {'pop': cfg.allpops},
+    'synMech': 'AMPA', # target synaptic mechanism
+    'probability': 0.25, #default: 0.25, 
+    'weight': 0.0001, 
+    'delay': 0.05
+   }  
 
 #------------------------------------------------------------------------------
 # Description
@@ -140,5 +140,11 @@ netParams.description = f"""
         -   Analyze the trigger frequency.
         -   i_ext = np.arange(0.1,1.1, 0.01)
         
-- v3    -   building a non-local network with fix gex=0.0001 and run i_ext =  currents
+- v3    -   building a non-local network with fix gex=0.0001 and i_ext = np.arange(0.5,1.01, 0.01)
+
+- v4 - d1 Network without extra neurons to produce a noise.
+     - d2 Network with 50 extra neurons to produce a noise.
+     - d3 Network with 100 extra neurons to produce a noise.
+     - d4 Network with 150 extra neurons to produce a noise.
+
 """

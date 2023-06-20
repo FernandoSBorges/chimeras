@@ -30,7 +30,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 6000.0 ## Duration of the sim, in ms  
+cfg.duration = 10000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.01
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -46,40 +46,15 @@ cfg.includeParamsLabel = False
 cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
-cfg.allpops = ['sPY']
+cfg.allpops = ['sPY', 'initialspikes']
 cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 
 #------------------------------------------------------------------------------
 # Net
 #------------------------------------------------------------------------------
-cfg.cellNumber = 1
-cfg.gex = 0.#0001 # default 0.0005
-cfg.n_neighbors = 0
-
-#------------------------------------------------------------------------------
-# Record Data 
-#------------------------------------------------------------------------------
-cfg.cellsrec = 0
-if cfg.cellsrec == 0:  cfg.recordCells = cfg.allpops # record all cells (except cells to produce desync)
-elif cfg.cellsrec == 1: cfg.recordCells = [(pop,0) for pop in cfg.allpops] # record one cell of each pop
-elif cfg.cellsrec == 2: cfg.recordCells = [(pop,ii) for pop in cfg.allpops for ii in range(int(cfg.cellNumber/10))] # record 10 cells of each pop
-
-cfg.recordTraces = {'V_soma': {'sec':'soma_0', 'loc':0.5, 'var':'v'}}  ## Dict with traces to record
-cfg.recordStim = True
-cfg.recordTime = True
-cfg.recordStep = 0.1            
-
-cfg.simLabel = 'v0_batch0'  # default: v0_batch0
-cfg.saveFolder = '../data/'+cfg.simLabel
-#cfg.saveFolder = '../data/'
-# cfg.filename =                	## Set file output name
-cfg.savePickle = True         	## Save pkl file
-cfg.saveJson = True           	## Save json file
-cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ## 
-cfg.backupCfgFile = None 		##  
-cfg.gatherOnlySimData = False	##  
-cfg.saveCellSecs = False			##  
-cfg.saveCellConns = False		##
+cfg.cellNumber = 100
+cfg.gex = 0.0001 #0001 # default 0.0005
+cfg.n_neighbors = 10 # é diferente do k do parâmetro de ordem.
 
 #------------------------------------------------------------------------------
 # Analysis and plotting 
@@ -87,15 +62,16 @@ cfg.saveCellConns = False		##
 # cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':True, 'figSize':(10, 4), 'fontSize':12}
 # cfg.analysis['plotSpikeStats'] = {'include': cfg.allpops, 'stats':['rate', 'isicv', 'sync'],'saveData': True, 'saveFig': True, 'showFig': False, 'figSize': (12,12), 'fontSize':12}
 
-# cfg.analysis['plot2Dnet']   = {
-#     'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'showConns': True,
-#     'figSize': (12,12), 'view': 'xz', 'fontSize':12,
-#     }
+cfg.analysis['plot2Dnet']   = {
+    #cfg.allpops
+    'include': cfg.allpops , 'saveFig': True, 'showFig': False, 'showConns': True,
+    'figSize': (12,12), 'view': 'xz', 'fontSize':12,
+    }
 
 # cfg.analysis['plotTraces'] = {
 #     'include': cfg.recordCells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace',
 #     'axis': False, 'subtitles':False, 'legend':False, 'overlay':False,
-#     'timeRange': [cfg.duration - 1000.0 ,cfg.duration], 'figSize':(36, 24), 'fontSize':2
+#     'timeRange': [0 ,cfg.duration], 'figSize':(36, 24), 'fontSize':2
 #     }
 
 # cfg.analysis['plotRaster'] = {  ## Plot a raster
@@ -119,13 +95,40 @@ cfg.IClamp0 =   {
     'pop': cfg.allpops[0],
     'sec': 'soma_0',
     'loc': 0.5,
-    'start': 0.0,
+    'start': 0,
     'dur': cfg.duration,
-    'amp': 0.7 #default 0.07
+    'amp': 0.88 #default 0.07
     }
 
 # spikes during 50 ms to create desyncronization
 # 50ms / 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_dur = 500 # defaut 500 = 50 ms
-cfg.numCellsDesync = 70  # numCells to produce desyncronization
+cfg.numCellsDesync = 100  # numCells to produce desyncronization
+
+
+#------------------------------------------------------------------------------
+# Record Data 
+#------------------------------------------------------------------------------
+cfg.cellsrec = 0
+if cfg.cellsrec == 0:  cfg.recordCells = cfg.allpops # record all cells (except cells to produce desync)
+elif cfg.cellsrec == 1: cfg.recordCells = [(pop,0) for pop in cfg.allpops] # record one cell of each pop
+elif cfg.cellsrec == 2: cfg.recordCells = [(pop,ii) for pop in cfg.allpops for ii in range(int(cfg.cellNumber/10))] # record 10 cells of each pop
+
+cfg.recordTraces = {'V_soma': {'sec':'soma_0', 'loc':0.5, 'var':'v'}}  ## Dict with traces to record
+cfg.recordStim = True
+cfg.recordTime = True
+cfg.recordStep = 0.1            
+
+cfg.simLabel = 'v3_batch0'  # default: v0_batch0
+cfg.saveFolder = '../data/'+cfg.simLabel
+#cfg.saveFolder = '../data/'
+# cfg.filename =                	## Set file output name
+cfg.savePickle = True         	## Save pkl file
+cfg.saveJson = True           	## Save json file
+cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ## 
+cfg.backupCfgFile = None 		##  
+cfg.gatherOnlySimData = False	##  
+cfg.saveCellSecs = False			##  
+cfg.saveCellConns = False		##
+

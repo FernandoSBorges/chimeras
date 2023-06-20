@@ -23,17 +23,15 @@ def custom():
     params = specs.ODict()
     
     # params[('seeds', 'conn')] =  [1] 
-    params[('gex')] = [float(sys.argv[3])]  #v1 
+    params[('gex')] = [float(sys.argv[3])]  #v1
+    #params[('numCellsDesync')] = [float(sys.argv[4])]
+
 
     # filtering string received as argv parameter
     arg_currents = [value.replace('[','').replace(']','').replace(',','').replace("'",'') for value in sys.argv[4:]]
     currents = np.array([float(value) for value in arg_currents if value != '']).astype('float64')
 
     params[('IClamp0', 'amp')] = currents # list of currents
-    
-    # params[('gex')] = gex
-    # params[('IClamp0', 'amp')] = current_ext
-    # params[('n_neighbors')] = [2, 4, 6, 8, 10]
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
 
