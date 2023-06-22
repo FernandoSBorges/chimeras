@@ -30,7 +30,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 2100.0 ## Duration of the sim, in ms  
+cfg.duration = 10000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.025
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -120,7 +120,7 @@ cfg.recordStim = True
 cfg.recordTime = True
 cfg.recordStep = 0.1            
 
-cfg.simLabel = 'v5_batch1'  # default: v0_batch0
+cfg.simLabel = 'v6_batch1'  # default: v0_batch0
 cfg.saveFolder = '../data/'+cfg.simLabel
 #cfg.saveFolder = '../data/'
 # cfg.filename =                	## Set file output name

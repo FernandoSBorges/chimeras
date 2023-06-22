@@ -13,12 +13,11 @@ import os
 import numpy as np
 
 # coupling of elements
-gex = [0.0001, 0.0002, 0.0003, 0.0004, 0.0005]
+gex = [0.0001, 0.0002, 0.0003, 0.0004]# 0.0005]
 
 # external current
-i_ext = np.arange(0.61,1., 0.01)
-currents = np.array_split(i_ext, len(i_ext)/3)
-#currents = [0.71, 0.9, 0.94]
+i_ext = [0.72, 0.82, 0.92, 1.02]#np.arange(0.61,1., 0.01)
+currents = np.array_split(i_ext, len(i_ext)/2)
 
 #desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
 #desyncr_spikes_dur = 500 # defaut 500 = 50 ms
@@ -27,7 +26,7 @@ currents = np.array_split(i_ext, len(i_ext)/3)
 batch = 1
 for g in gex:
     for current in currents:
-        os.system(f'python3 batch.py 5 {batch} {g:.5f} ' + f'{current}')
+        os.system(f'python3 batch.py 6 {batch} {g:.5f} ' + f'{current}')
         batch+=1
 
 
