@@ -30,8 +30,8 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 10000.0 ## Duration of the sim, in ms  
-cfg.dt = 0.01
+cfg.duration = 2100.0 ## Duration of the sim, in ms  
+cfg.dt = 0.025
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
 cfg.verbose = False
@@ -53,7 +53,7 @@ cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 # Net
 #------------------------------------------------------------------------------
 cfg.cellNumber = 100
-cfg.gex = 0.0001 #0001 # default 0.0005
+cfg.gex = 0.0003 #0001 # default 0.0005
 cfg.n_neighbors = 10 # é diferente do k do parâmetro de ordem.
 
 #------------------------------------------------------------------------------
@@ -62,11 +62,11 @@ cfg.n_neighbors = 10 # é diferente do k do parâmetro de ordem.
 # cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':True, 'figSize':(10, 4), 'fontSize':12}
 # cfg.analysis['plotSpikeStats'] = {'include': cfg.allpops, 'stats':['rate', 'isicv', 'sync'],'saveData': True, 'saveFig': True, 'showFig': False, 'figSize': (12,12), 'fontSize':12}
 
-cfg.analysis['plot2Dnet']   = {
-    #cfg.allpops
-    'include': cfg.allpops , 'saveFig': True, 'showFig': False, 'showConns': True,
-    'figSize': (12,12), 'view': 'xz', 'fontSize':12,
-    }
+# cfg.analysis['plot2Dnet']   = {
+#     #cfg.allpops
+#     'include': cfg.allpops , 'saveFig': True, 'showFig': False, 'showConns': True,
+#     'figSize': (12,12), 'view': 'xz', 'fontSize':12,
+#     }
 
 # cfg.analysis['plotTraces'] = {
 #     'include': cfg.recordCells, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace',
@@ -104,7 +104,7 @@ cfg.IClamp0 =   {
 # 50ms / 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_dur = 500 # defaut 500 = 50 ms
-cfg.numCellsDesync = 100  # numCells to produce desyncronization
+cfg.numCellsDesync = 70  # numCells to produce desyncronization
 
 
 #------------------------------------------------------------------------------
@@ -120,12 +120,12 @@ cfg.recordStim = True
 cfg.recordTime = True
 cfg.recordStep = 0.1            
 
-cfg.simLabel = 'v3_batch0'  # default: v0_batch0
+cfg.simLabel = 'v5_batch1'  # default: v0_batch0
 cfg.saveFolder = '../data/'+cfg.simLabel
 #cfg.saveFolder = '../data/'
 # cfg.filename =                	## Set file output name
 cfg.savePickle = True         	## Save pkl file
-cfg.saveJson = True           	## Save json file
+cfg.saveJson = False           	## Save json file
 cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ## 
 cfg.backupCfgFile = None 		##  
 cfg.gatherOnlySimData = False	##  

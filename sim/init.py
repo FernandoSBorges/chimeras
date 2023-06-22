@@ -65,9 +65,9 @@ sim.analysis.plotData()         			# plot spike raster etc
 
 
 # code to run with batch.py
-rate = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_rate.json', stats=['rate'], saveFig=False)
-isicv = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_CV.json', stats=['isicv'], saveFig=False)
-sync = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_sync.json', stats=['sync'], saveFig=False)
+rate = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_rate.pkl', stats=['rate'], saveFig=False)
+isicv = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_CV.pkl', stats=['isicv'], saveFig=False)
+sync = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_sync.pkl', stats=['sync'], saveFig=False)
 
 # code to test with init.py
 # rate = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel + '_rate.json', stats=['rate'], saveFig=False)

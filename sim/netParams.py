@@ -147,4 +147,6 @@ netParams.description = f"""
      - d3 Network with 100 extra neurons to produce a noise.
      - d4 Network with 150 extra neurons to produce a noise.
 
+- v5 - Run a network with gex [0.0001, 0.0002, 0.0003, 0.0004, 0.0005] and 
+     - externar currents np.arange(0.41,1.0, 0.02)
 """
