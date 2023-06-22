@@ -146,3 +146,5 @@ data4/
 data_test/
 organize.py
 run_organize.py
+
+*.btr
