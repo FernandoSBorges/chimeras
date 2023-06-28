@@ -30,7 +30,11 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 cfg.duration = 10000.0 ## Duration of the sim, in ms  
+=======
+cfg.duration = 6000.0 ## Duration of the sim, in ms  
+>>>>>>> 880fcb7 (Update files)
 cfg.dt = 0.025
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -46,15 +50,45 @@ cfg.includeParamsLabel = False
 cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
-cfg.allpops = ['sPY', 'initialspikes']
+# cfg.allpops = ['sPY', 'initialspikes']
+# cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
+cfg.allpops = ['sPY']
 cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 
 #------------------------------------------------------------------------------
 # Net
 #------------------------------------------------------------------------------
-cfg.cellNumber = 100
-cfg.gex = 0.0003 #0001 # default 0.0005
-cfg.n_neighbors = 10 # é diferente do k do parâmetro de ordem.
+cfg.cellNumber = 200
+cfg.gex = 0.00005 #0001 # default 0.0005
+cfg.n_neighbors = 20 # cons in one direction 
+
+#------------------------------------------------------------------------------
+# Current inputs 
+#------------------------------------------------------------------------------
+cfg.addIClamp = 1
+# IClamp0 to produce spikes during 2000ms
+cfg.IClamp0 =   {
+    'pop': cfg.allpops[0],
+    'sec': 'soma_0',
+    'loc': 0.5,
+    'start': 0,
+    'dur': cfg.duration,
+    'amp': 0.5 #default 0.07
+    }
+
+# spikes during 50 ms to create desyncronization
+# 50ms / 7 = 1 spike every 7.143ms
+cfg.desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
+cfg.desyncr_spikes_dur = 500 # defaut 500 = 50 ms
+cfg.numCellsDesync = 50 # numCells to produce desyncronization
+
+#------------------------------------------------------------------------------
+# Record Data 
+#------------------------------------------------------------------------------
+cfg.cellsrec = 0
+if cfg.cellsrec == 0:  cfg.recordCells = cfg.allpops # record all cells (except cells to produce desync)
+elif cfg.cellsrec == 1: cfg.recordCells = [(pop,0) for pop in cfg.allpops] # record one cell of each pop
+elif cfg.cellsrec == 2: cfg.recordCells = [(pop,ii) for pop in cfg.allpops for ii in range(int(cfg.cellNumber/10))] # record 10 cells of each pop
 
 #------------------------------------------------------------------------------
 # Analysis and plotting 
@@ -76,7 +110,7 @@ cfg.n_neighbors = 10 # é diferente do k do parâmetro de ordem.
 
 # cfg.analysis['plotRaster'] = {  ## Plot a raster
 #     'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False,
-#     'orderInverse': True, 'timeRange': [0,cfg.duration],'figSize': (24,12),
+#     'orderInverse': True, 'timeRange': [cfg.duration-1000,cfg.duration],'figSize': (24,12),
 #     'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300,
 #     }
 
@@ -86,43 +120,17 @@ cfg.n_neighbors = 10 # é diferente do k do parâmetro de ordem.
 #     'figSize': (12,12), 'fontSize':12
 #     }
 
-#------------------------------------------------------------------------------
-# Current inputs 
-#------------------------------------------------------------------------------
-cfg.addIClamp = 1
-# IClamp0 to produce spikes during 2000ms
-cfg.IClamp0 =   {
-    'pop': cfg.allpops[0],
-    'sec': 'soma_0',
-    'loc': 0.5,
-    'start': 0,
-    'dur': cfg.duration,
-    'amp': 0.88 #default 0.07
-    }
-
-# spikes during 50 ms to create desyncronization
-# 50ms / 7 = 1 spike every 7.143ms
-cfg.desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
-cfg.desyncr_spikes_dur = 500 # defaut 500 = 50 ms
-cfg.numCellsDesync = 70  # numCells to produce desyncronization
-
-
-#------------------------------------------------------------------------------
-# Record Data 
-#------------------------------------------------------------------------------
-cfg.cellsrec = 0
-if cfg.cellsrec == 0:  cfg.recordCells = cfg.allpops # record all cells (except cells to produce desync)
-elif cfg.cellsrec == 1: cfg.recordCells = [(pop,0) for pop in cfg.allpops] # record one cell of each pop
-elif cfg.cellsrec == 2: cfg.recordCells = [(pop,ii) for pop in cfg.allpops for ii in range(int(cfg.cellNumber/10))] # record 10 cells of each pop
-
 cfg.recordTraces = {'V_soma': {'sec':'soma_0', 'loc':0.5, 'var':'v'}}  ## Dict with traces to record
 cfg.recordStim = True
 cfg.recordTime = True
 cfg.recordStep = 0.1            
 
+<<<<<<< HEAD
 cfg.simLabel = 'v6_batch1'  # default: v0_batch0
+=======
+cfg.simLabel = 'v6_batch0'  # default: v0_batch0
+>>>>>>> 880fcb7 (Update files)
 cfg.saveFolder = '../data/'+cfg.simLabel
-#cfg.saveFolder = '../data/'
 # cfg.filename =                	## Set file output name
 cfg.savePickle = True         	## Save pkl file
 cfg.saveJson = False           	## Save json file

@@ -110,7 +110,6 @@ radius_conns = cfg.n_neighbors * dist_between_neurons + 0.001
 prob = '(dist_2D<%s)' % (radius_conns)
 
 # print(dist_between_neurons,radius_conns,prob)
-
 netParams.connParams['EE'] = { 
     'preConds': {'pop': cfg.allpops},
     'postConds': {'pop': cfg.allpops},
@@ -124,10 +123,10 @@ netParams.connParams['initialrandom'] = {
     'preConds': {'pop': 'initialspikes'},
     'postConds': {'pop': cfg.allpops},
     'synMech': 'AMPA', # target synaptic mechanism
-    'probability': 0.25, #default: 0.25, 
+    'probability': 0.50, 
     'weight': 0.0001, 
     'delay': 0.05
-   }  
+    }  
 
 #------------------------------------------------------------------------------
 # Description
@@ -147,6 +146,12 @@ netParams.description = f"""
      - d3 Network with 100 extra neurons to produce a noise.
      - d4 Network with 150 extra neurons to produce a noise.
 
-- v5 - Run a network with gex [0.0001, 0.0002, 0.0003, 0.0004, 0.0005] and 
-     - externar currents np.arange(0.41,1.0, 0.02)
+- v5 - Run a network with gex [0.0001, 0.0002, 0.0003, 0.0004] and 
+     - externar currents np.arange(0.76,.91, 0.01)
+
+- v6    - Run network 
+        - gex = np.arange(1,11) * 1e-5
+        - i_ext i_ext = np.arange(0.76,.91, 0.01)
+        - lenght network = 100 neurons
+     
 """
