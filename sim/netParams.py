@@ -150,8 +150,7 @@ netParams.description = f"""
      - externar currents np.arange(0.76,.91, 0.01)
 
 - v6    - Run network 
-        - gex = np.arange(1,11) * 1e-5
-        - i_ext i_ext = np.arange(0.76,.91, 0.01)
+        - gex = np.linspace(1,10,10) * 1e-5
+        - i_ext i_ext = np.round(np.linspace(0.2,0.8,10), 3)
         - lenght network = 100 neurons
-     
 """

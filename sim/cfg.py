@@ -30,11 +30,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-cfg.duration = 10000.0 ## Duration of the sim, in ms  
-=======
-cfg.duration = 6000.0 ## Duration of the sim, in ms  
->>>>>>> 880fcb7 (Update files)
+cfg.duration = 3000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.025
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -125,11 +121,7 @@ cfg.recordStim = True
 cfg.recordTime = True
 cfg.recordStep = 0.1            
 
-<<<<<<< HEAD
-cfg.simLabel = 'v6_batch1'  # default: v0_batch0
-=======
 cfg.simLabel = 'v6_batch0'  # default: v0_batch0
->>>>>>> 880fcb7 (Update files)
 cfg.saveFolder = '../data/'+cfg.simLabel
 # cfg.filename =                	## Set file output name
 cfg.savePickle = True         	## Save pkl file
