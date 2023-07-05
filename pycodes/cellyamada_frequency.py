@@ -122,18 +122,18 @@ def create_cell(im):
     soma = insert_mechanisms(soma, hh2=True, pas=True, im=im)
     return soma
 
-def frequency(voltage_array, time_array):
+def frequency(time_array, voltage_array):
     tpeaks, _ = signal.find_peaks(voltage_array)
     spkt = time_array[tpeaks[1:-1]]
     if len(spkt) > 1:
-        freq = len(spkt)/(spkt[-1] - spkt[0]) # n spikes / t ms  = [Hz/10e-3]
+        freq = len(spkt)/(time_array[-1] - time_array[0]) # n spikes / t ms  = [Hz/10e-3]
         return freq * 1e3 # 
     else:
         return 0 
 
 
-current_injected = np.linspace(0.2, 0.8, 100)
-g_m = np.linspace(1, 10, 100)*1e-5
+current_injected = np.linspace(0.01, 1.0, 100)
+g_m = np.linspace(0, 10, 100)*1e-5
 
 n = len(current_injected)
 data = np.zeros((n,n))
@@ -142,7 +142,7 @@ for i, current in enumerate(current_injected):
     for j, g_im in enumerate(g_m):
         soma = create_cell(g_im)
         time, voltage, stim = simConfig(soma, 3000, current, 2800, 100, return_channels=False)
-        freq = frequency(np.array(voltage), np.array(time))
+        freq = frequency(np.array(time),np.array(voltage))
         data[i, j] = freq
         
 
@@ -161,7 +161,7 @@ plot_params()
 fig, ax = plt.subplots()
 tg, ig = np.meshgrid(current_injected, g_m)
 hm = ax.pcolor(ig, tg, data, cmap='jet')#, shading='auto')
-cbar = plt.colorbar(hm, ax=ax, label='F (Hz)')
+cbar = plt.colorbar(hm, ax=ax, label='Fr(Hz)')
 ax.set_ylabel('Injected Current (nA)')
 ax.set_xlabel('$g_m$ (S/cm²)')
-plt.savefig('./figures/YamadaModel_Space_param_freq',dpi=600,)
+plt.savefig('./figures/YamadaModel_Space_param_freq2.png',dpi=600,)

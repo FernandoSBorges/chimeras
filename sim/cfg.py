@@ -30,7 +30,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 3000.0 ## Duration of the sim, in ms  
+cfg.duration = 4000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.025
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -56,7 +56,7 @@ cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 #------------------------------------------------------------------------------
 cfg.cellNumber = 200
 cfg.gex = 0.00005 #0001 # default 0.0005
-cfg.n_neighbors = 20 # cons in one direction 
+cfg.n_neighbors = 30 # conetions in one direction 
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -76,7 +76,7 @@ cfg.IClamp0 =   {
 # 50ms / 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_dur = 500 # defaut 500 = 50 ms
-cfg.numCellsDesync = 50 # numCells to produce desyncronization
+cfg.numCellsDesync = 100 # numCells to produce desyncronization
 
 #------------------------------------------------------------------------------
 # Record Data 
@@ -121,7 +121,7 @@ cfg.recordStim = True
 cfg.recordTime = True
 cfg.recordStep = 0.1            
 
-cfg.simLabel = 'v6_batch0'  # default: v0_batch0
+cfg.simLabel = 'v7_batch0'  # default: v0_batch0
 cfg.saveFolder = '../data/'+cfg.simLabel
 # cfg.filename =                	## Set file output name
 cfg.savePickle = True         	## Save pkl file

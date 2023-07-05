@@ -12,23 +12,26 @@ Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
 import os
 import numpy as np
 
-# coupling of elements
-gex = np.linspace(1,10,10) * 1e-5
+gex = np.round(np.linspace(6,20,5) * 1e-4, 6)
 
 # external current
-i_ext = np.round(np.linspace(0.2,0.8,10), 3) #np.arange(0.61,1., 0.01)
-currents = np.array_split(i_ext, len(i_ext)/2)
+i_ext = np.round(np.linspace(0.72, 0.9, 5), 3) #np.arange(0.61,1., 0.01)
+currents = np.array_split(i_ext, len(i_ext)/4)
 
 #desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
 #desyncr_spikes_dur = 500 # defaut 500 = 50 ms
 #numCellsDesync = 80  # numCells to produce desyncronization
 
 batch = 1
+v = 6
+
 for g in gex:
     for current in currents:
-        os.system(f'python3 batch.py 6 {batch} {g:.5f} ' + f'{current}')
-        for c in range(len(current)+1):
-            os.system(f'python3 plotRaster.py 6 {batch} {c}')
+        # os.system(f'python3 batch.py {v} {batch} {g:.6f} ' + f'{current}')
+        for c in range(len(current)):
+            os.system(f'python3 plotRaster.py {v} {batch} {c}')
+            os.system(f'python3 plotGOP.py {v} {batch} {c}')
+            os.system(f'python3 plotLOP.py {v} {batch} {c}')
         batch+=1
 
 

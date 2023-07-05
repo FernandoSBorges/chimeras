@@ -149,8 +149,13 @@ netParams.description = f"""
 - v5 - Run a network with gex [0.0001, 0.0002, 0.0003, 0.0004] and 
      - externar currents np.arange(0.76,.91, 0.01)
 
-- v6    - Run network 
-        - gex = np.linspace(1,10,10) * 1e-5
-        - i_ext i_ext = np.round(np.linspace(0.2,0.8,10), 3)
+- v6    - Run network time simulation 3 ms
+        - gex = np.round(np.linspace(6,40,10) * 1e-4, 6)
+        - i_ext = np.round(np.linspace(0.72, 0.9, 10), 3)
         - lenght network = 100 neurons
+
+- v7    - Run network time simulation 3 ms
+        - gex = np.round(np.linspace(6,40,10) * 1e-4, 6)
+        - i_ext = np.round(np.linspace(0.72, 0.9, 10), 3)
+        - lenght network = 200 neurons
 """
