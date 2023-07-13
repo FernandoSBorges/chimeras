@@ -1,5 +1,26 @@
 import numpy as np 
 import scipy
+import sys
+
+def get_dict_size(dictionary):
+    """
+    Retorna o tamanho em megabytes de um dicionário e seus valores.
+
+    Args:
+        dictionary (dict): O dicionário para calcular o tamanho.
+
+    Returns:
+        float: O tamanho do dicionário e seus valores em megabytes.
+
+    Raises:
+        None
+    """
+    size = sys.getsizeof(dictionary)
+    for value in dictionary.values():
+        size += sys.getsizeof(value)
+    return size / (1024 * 1024)  # Convertendo para megabytes
+
+# Exemplo de dicionário
 
 def get_numpy(data):
     """
@@ -38,7 +59,7 @@ def find_peaks(t_arr, v_arr, only_id=False):
         return peaks_id, t, v
 
 
-def phase_of_v(t_sample, v_sample):
+def phase_of_v(t_sample, v_sample, return_peaks=False):
     """
     Calcula as fases de um sinal de forma de onda em relação aos picos.
 
@@ -74,8 +95,10 @@ def phase_of_v(t_sample, v_sample):
                 if t0 < t <t1:
                     # calcula a fase phi e adiciona no array
                     phases[n,i] = phi(t,t0,t1)
-
-    return t_range, phases
+    if return_peaks:
+        return t_range, phases, peaksmat, t_peaks, id_first_spk, id_last_spk
+    else:    
+        return t_range, phases
 
 
 def kuramoto_param_global_order(spatial_phase_arr):
@@ -91,9 +114,8 @@ def kuramoto_param_global_order(spatial_phase_arr):
     """
     n = len(spatial_phase_arr)
     somatorio = 0
-    for j in range(0, n + 1):
-        if j == n or j == 0:
-            j = j % n
+    for j in range(n):
+        j = j % n
         somatorio += np.exp(complex(0, spatial_phase_arr[j]))
     z = np.abs(somatorio) / n
     return z
@@ -116,12 +138,7 @@ def kuramoto_param_local_order(spatial_phase_arr, k):
     for i in range(n):
         somatorio = 0
         for vizinhos in range(i - p, i + p + 1):
-            if vizinhos == 0 or vizinhos == n:
-                j = n
-            else:
-                j = vizinhos % n
-            if j >= n:
-                j = j % n
+            j = vizinhos % n
             somatorio += np.exp(complex(0, spatial_phase_arr[j]))
         z[i] = np.abs(somatorio / (int(2*p)+1))
     return z
