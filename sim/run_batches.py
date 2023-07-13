@@ -12,19 +12,15 @@ Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
 import os
 import numpy as np
 
-gex = np.round(np.linspace(6,20,5) * 1e-4, 6)
-
+# coupling of elements
+gex = np.round(np.linspace(6,10,10) * 1e-4, 6)
 # external current
-i_ext = np.round(np.linspace(0.72, 0.9, 6), 3) #np.arange(0.61,1., 0.01)
+i_ext = np.round(np.linspace(0.72, 0.9, 10), 3)
 currents = np.array_split(i_ext, 2)
 
-#desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
-#desyncr_spikes_dur = 500 # defaut 500 = 50 ms
-#numCellsDesync = 80  # numCells to produce desyncronization
-
 batch = 1
-v = 1
-neighbors = 4
+v = 8
+neighbors = 10
 
 for g in gex:
     for current in currents:

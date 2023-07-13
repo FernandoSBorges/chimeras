@@ -9,22 +9,26 @@ batch = sys.argv[2]
 batch_number = 'batch'+str(batch.zfill(4))
 subbatch = sys.argv[3]
 subbatch_number = '0_'+str(subbatch)
-neighbors = sys.argv[4]
+neighbors = int(sys.argv[4])
 file = f'../data/{v}_{batch_number}/{v}_{batch_number}_{subbatch_number}'
 
 
 print('\n~~ Pre processing ')
+print(f'~ Read file: {file}')
 with open(file+'_data.pkl', 'rb') as f:
     data = pickle.load(f)
-
 size_in_mb = get_dict_size(data)
 
 print(f"Tamanho do dicionário:{size_in_mb:.4f}MB")
 
 t_data, v_data = get_numpy(data)
-print('~ Computing phase')
-t_phase, phases, peaksmat, t_peaks, id_first_spk, id_last_spk = phase_of_v(t_data, v_data, return_peaks=True)
 
+v_sample = v_data[:, 40000:50000] # 1000 ms / 0.1
+t_sample = t_data[40000:50000]
+
+print('~ Computing phase')
+result_phase = phase_of_v(t_sample, v_sample, return_peaks=True)
+t_phase, phases, peaksmat, t_peaks, id_first_spk, id_last_spk = result_phase
 data['t_phase'] = t_phase
 data['phases'] = phases
 data['peaksmat'] = peaksmat
@@ -40,7 +44,8 @@ data['GOP'] = gop
 
 print('~ Computing LOP:')
 lops = {}
-for k in range(2, neighbors+1,2):
+print(f' -- K:{np.arange(4,neighbors+1, 2)}')
+for k in range(4, neighbors+1,2):
     print(f'--> K: {k}')
     lop = np.zeros_like(phases.T)
     for i, spatial_phase in enumerate(phases.T):

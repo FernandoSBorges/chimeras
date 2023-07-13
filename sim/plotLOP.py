@@ -9,7 +9,7 @@ cmap_LOP = ListedColormap(colors)
 
 
 def plot_params():
-    plt.rc('text', usetex=True)
+    # plt.rc('text', usetex=True)
     plt.rc('font', size=13)
     plt.rc('xtick', labelsize=11)
     plt.rc('ytick', labelsize=11)
@@ -17,8 +17,8 @@ def plot_params():
     plt.rc('legend', fontsize=8)
     plt.rc('lines', linewidth=1.0)
     plt.rcParams["axes.formatter.limits"] = (-3, 4)
-    plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
-# plot_params()
+    # plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+plot_params()
 
 def plot_LOP(t_phase_smp,lop, vizinhos):
     fig, ax2 = plt.subplots(ncols=1, nrows=1, figsize=(8,3),sharex=True)
@@ -44,8 +44,6 @@ subbatch = sys.argv[3]
 subbatch_number = '0_'+str(subbatch)
 file = f'../data/{v}_{batch_number}/{v}_{batch_number}_{subbatch_number}'
 
-# file = '../data3/v5_batch2/v5_batch2'
-
 print('\n~~ Plot LOP ')
 print(f'Reading: "{file}"')
 with open(file + '_data.pkl', 'rb') as f:
@@ -57,6 +55,7 @@ lops = data['LOP_k']
 t_phase = data['t_phase']
 
 for k, lop in lops.items():
+    print(f'--> Plot LOP: k = {k}')
     plot_LOP(t_phase, lop, vizinhos=k)
 
 print('\n~~')
