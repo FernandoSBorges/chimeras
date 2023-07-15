@@ -6,7 +6,7 @@ import os
 import sys
 
 def plot_params():
-    # plt.rc('text', usetex=True)
+    plt.rc('text', usetex=True)
     plt.rc('font', size=13)
     plt.rc('xtick', labelsize=11)
     plt.rc('ytick', labelsize=11)
@@ -14,21 +14,18 @@ def plot_params():
     plt.rc('legend', fontsize=8)
     plt.rc('lines', linewidth=1.0)
     plt.rcParams["axes.formatter.limits"] = (-3, 4)
-    # plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+    plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 plot_params()
 
 def plotRaster(t_phase, t_spikes):
     fig, ax = plt.subplots(1,1, figsize=(8,4))
     fig.set_tight_layout(20)
-    label_gex = f'{gex}'+'S/cm²'
-    parameters = r'g_{ex}' + f'={label_gex}' + '\quad' + r'i_{ex}' + f'={amp}nA'+ '\quad'+ 'PopRate'+f'={popRates:.2f}Hz'
 
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    ax.set_title('Raster Plot \n$'+parameters+'$', pad=20)
+    ax.set_title('$g_{ex}='+f'{gex}$ S/cm²' + 5*' '+ '$I='+f'{amp}$ nA'+ 5*' '+f'PopRate $={popRates:.2f}Hz$')
     ax.set_ylabel('$n$-ésimo Neurônio')
     ax.set_xlabel('Tempo (ms)')
-
     ax.set_ylim(0, len(t_spikes))
     ax.set_xlim(t_phase[0], t_phase[-1])
 

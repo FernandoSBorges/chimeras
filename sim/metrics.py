@@ -20,8 +20,6 @@ def get_dict_size(dictionary):
         size += sys.getsizeof(value)
     return size / (1024 * 1024)  # Convertendo para megabytes
 
-# Exemplo de dicionário
-
 def get_numpy(data):
     """
     Converte os dados em formato de dicionário para matrizes NumPy.
@@ -142,3 +140,28 @@ def kuramoto_param_local_order(spatial_phase_arr, k):
             somatorio += np.exp(complex(0, spatial_phase_arr[j]))
         z[i] = np.abs(somatorio / (int(2*p)+1))
     return z
+
+
+def mean_lop_window(lop, window):
+    """
+    Calcula a média de janelas deslizantes em um conjunto de dados.
+
+    Args:
+        lop (numpy.ndarray): Array contendo os dados do parâmetro de ordem local (LOP)
+        window (int): O tamanho da janela deslizante.
+        ti (float): O valor inicial da janela de tempo.
+        tf (float): O valor final da janela de tempo.
+
+    Returns:
+        tuple: Uma tupla contendo um array NumPy representando os tempos das janelas e um array NumPy representando a média dos dados em cada janela.
+
+    Raises:
+        None
+    """
+    n_arrays = lop.shape[0] // window
+    lop_window = np.array_split(lop, n_arrays)
+    mlw = np.zeros((n_arrays,lop.shape[1]))
+    for i, arr_window in enumerate(lop_window):
+        mlw[i] = np.mean(arr_window, axis=0)
+    mlw = np.transpose(mlw)
+    return mlw

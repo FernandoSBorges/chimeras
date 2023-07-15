@@ -19,18 +19,20 @@ i_ext = np.round(np.linspace(0.72, 0.9, 10), 3)
 currents = np.array_split(i_ext, 2)
 
 batch = 1
-v = 8
-neighbors = 10
+v = 9
+k_max = 12
 
 for g in gex:
     for current in currents:
-        os.system(f'python3 batch.py {v} {batch} {g:.6f} ' + f'{current}')
+        # os.system(f'python3 batch.py {v} {batch} {g:.6f} ' + f'{current}')
         for c in range(len(current)):
-            os.system(f'python3 preprocessing.py {v} {batch} {c} {neighbors}')
+            os.system(f'python3 preprocessing.py {v} {batch} {c} {k_max}')
             os.system(f'python3 plotRaster.py {v} {batch} {c}')
             os.system(f'python3 plotPhase.py {v} {batch} {c}')
+            os.system(f'python3 plotHistBoxPlot.py {v} {batch} {c}')
             os.system(f'python3 plotGOP.py {v} {batch} {c}')
             os.system(f'python3 plotLOP.py {v} {batch} {c}')
+            os.system(f'python3 plotMeanLOPWindow.py {v} {batch} {c}')
         batch+=1
 
 

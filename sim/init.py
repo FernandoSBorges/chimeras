@@ -77,4 +77,4 @@ sync = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.
 
 print("\n \t %s \t FR = %.3f Hz \t CV = %.3f \t sync = %.3f "  % (cfg.simLabel,np.mean(rate[1]['statData']),np.mean(isicv[1]['statData']),np.mean(sync[1]['statData'])))
 
-os.system('python3 plotRaster.py')
+os.system('python3 preprocessing.py')

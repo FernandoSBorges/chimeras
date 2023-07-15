@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import sys
 
 def plot_params():
-    # plt.rc('text', usetex=True)
+    plt.rc('text', usetex=True)
     plt.rc('font', size=13)
     plt.rc('xtick', labelsize=11)
     plt.rc('ytick', labelsize=11)
@@ -12,7 +12,7 @@ def plot_params():
     plt.rc('legend', fontsize=8)
     plt.rc('lines', linewidth=1.0)
     plt.rcParams["axes.formatter.limits"] = (-3, 4)
-    # plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+    plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 plot_params()
 
 from matplotlib.colors import LinearSegmentedColormap

@@ -30,7 +30,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 6000.0 ## Duration of the sim, in ms  
+cfg.duration = 2000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.01
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -55,7 +55,7 @@ cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 # Net
 #------------------------------------------------------------------------------
 cfg.cellNumber = 100
-cfg.gex = 0.001 #0001 # default 0.0005
+cfg.gex = 0.0006 #0001 # default 0.0005
 cfg.n_neighbors = 20 #int(0.3 * cfg.cellNumber) # conetions in one direction 
 
 #------------------------------------------------------------------------------
@@ -67,9 +67,9 @@ cfg.IClamp0 =   {
     'pop': cfg.allpops[0],
     'sec': 'soma_0',
     'loc': 0.5,
-    'start': 0,
+    'start': 40,
     'dur': cfg.duration,
-    'amp': 0.2 #default 0.07
+    'amp': 0.75 #default 0.07
     }
 
 # spikes during 50 ms to create desyncronization
