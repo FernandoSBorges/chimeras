@@ -4,16 +4,16 @@ import numpy as np
 from metrics import *
 
 # read variables of file
-# v = 'v'+str(sys.argv[1])
-# batch = sys.argv[2]
-# batch_number = 'batch'+str(batch.zfill(4))
-# subbatch = sys.argv[3]
-# subbatch_number = '0_'+str(subbatch)
-# delta = int(sys.argv[4])
-# file = f'../data/{v}_{batch_number}/{v}_{batch_number}_{subbatch_number}'
+v = str(sys.argv[1])
+batch = sys.argv[2]
+batch_number = 'batch'+str(batch.zfill(4))
+subbatch = sys.argv[3]
+subbatch_number = '0_'+str(subbatch)
+delta = int(sys.argv[4])
+file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
 
-file = f'../data/v8_batch3/v8_batch3'
-delta = 10
+# file = f'../data/v8_batch3/v8_batch3'
+
 
 print('\n~~ Pre processing ')
 print(f'~ Read file: {file}')
@@ -25,8 +25,8 @@ print(f"Tamanho do dicionário:{size_in_mb:.4f}MB")
 
 t_data, v_data = get_numpy(data)
 
-ti_sample = 0
-tf_sample = 10000
+ti_sample = 40000
+tf_sample = 51001
 
 data['ti_sample'] = ti_sample
 data['tf_sample'] = tf_sample
@@ -45,6 +45,7 @@ data['t_peaks'] = t_peaks
 data['id_first_spk'] = id_first_spk
 data['id_last_spk'] = id_last_spk
 
+
 print('~ Computing GOP')
 gop = np.zeros(phases.shape[1])
 for i, spatial_phase in enumerate(phases.T):
@@ -53,8 +54,8 @@ data['GOP'] = gop
 
 print('~ Computing LOP:')
 lops = {}
-print(f' -- K:{np.arange(4,delta+1, 4)}')
-for k in range(4, delta+1,4):
+print(f' -- K:{np.arange(2,delta+1, 2)}')
+for k in range(2, delta+1,2):
     print(f'--> K: {k}')
     lop = np.zeros_like(phases.T)
     for i, spatial_phase in enumerate(phases.T):

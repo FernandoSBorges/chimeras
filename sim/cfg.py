@@ -30,7 +30,7 @@ rootFolder = os.getcwd()
 # Run parameters
 #------------------------------------------------------------------------------
 
-cfg.duration = 2000.0 ## Duration of the sim, in ms  
+cfg.duration = 1000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.01
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -56,7 +56,7 @@ cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 #------------------------------------------------------------------------------
 cfg.cellNumber = 100
 cfg.gex = 0.0006 #0001 # default 0.0005
-cfg.n_neighbors = 20 #int(0.3 * cfg.cellNumber) # conetions in one direction 
+cfg.n_neighbors = 10 #int(0.3 * cfg.cellNumber) # conetions in one direction 
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -76,7 +76,7 @@ cfg.IClamp0 =   {
 # 50ms / 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_dur = 500 # defaut 500 = 50 ms
-cfg.numCellsDesync = int(cfg.n_neighbors*2) #100 # numCells to produce desyncronization
+cfg.numCellsDesync = 70 #100 # numCells to produce desyncronization
 
 #------------------------------------------------------------------------------
 # Record Data 
@@ -92,11 +92,11 @@ elif cfg.cellsrec == 2: cfg.recordCells = [(pop,ii) for pop in cfg.allpops for i
 # cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'overlay':True, 'figSize':(10, 4), 'fontSize':12}
 # cfg.analysis['plotSpikeStats'] = {'include': cfg.allpops, 'stats':['rate', 'isicv', 'sync'],'saveData': True, 'saveFig': True, 'showFig': False, 'figSize': (12,12), 'fontSize':12}
 
-# cfg.analysis['plot2Dnet']   = {
-#     #cfg.allpops
-#     'include': cfg.allpops , 'saveFig': True, 'showFig': False, 'showConns': True,
-#     'figSize': (12,12), 'view': 'xz', 'fontSize':12,
-#     }
+cfg.analysis['plot2Dnet']   = {
+    #cfg.allpops
+    'include': cfg.allpops , 'saveFig': True, 'showFig': False, 'showConns': True,
+    'figSize': (12,12), 'view': 'xz', 'fontSize':12,
+    }
 
 # cfg.analysis['plotRaster'] = {  ## Plot a raster
 #     'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False,
@@ -115,7 +115,7 @@ cfg.recordStim = True
 cfg.recordTime = True
 cfg.recordStep = 0.1            
 
-cfg.simLabel = 'v8_batch3'  # default: v0_batch0
+cfg.simLabel = 'v5_batch0'  # default: v0_batch0
 cfg.saveFolder = '../data/'+cfg.simLabel
 # cfg.filename =                	## Set file output name
 cfg.savePickle = True         	## Save pkl file
@@ -124,5 +124,5 @@ cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ##
 cfg.backupCfgFile = None 		##  
 cfg.gatherOnlySimData = False	##  
 cfg.saveCellSecs = False			##  
-cfg.saveCellConns = False		##
+cfg.saveCellConns = True		##
 

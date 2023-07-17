@@ -20,9 +20,10 @@ def plot_params():
     plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 plot_params()
 
-def plot_LOP(t_phase_smp,lop, vizinhos):
+def plot_LOP(t_phase_smp, lop, vizinhos):
     fig, ax2 = plt.subplots(ncols=1, nrows=1, figsize=(8,3),sharex=True)
     fig.set_tight_layout(20)
+    fig.suptitle('$g_{ex}='+f'{gex}$ S/cm²' + ' | '+'$I='+f'{amp}$ nA'+ '\n' +f'PopRate $={popRates:.2f}$Hz'+ ' | '+f'$N$ cons: {int(n_cons)}', fontsize=14)
     n_neurons = np.arange(lop.shape[1])
     t = t_phase_smp
     tg, ig = np.meshgrid(n_neurons, t)
@@ -35,14 +36,16 @@ def plot_LOP(t_phase_smp,lop, vizinhos):
     ax2.set_ylabel('$n$ neurônio')
     ax2.set_ylim(0,len(n_neurons))
     ax2.set_xlabel('Tempo (ms)')
+    ax2.set_xlim(t_phase_smp[1000], t_phase_smp[-100])
     plt.savefig(file+f'_PlotLOP_{gex}_{amp}_{vizinhos}.png', dpi=600, bbox_inches='tight')
 
-v = 'v'+str(sys.argv[1])
+v = str(sys.argv[1])
 batch = sys.argv[2]
 batch_number = 'batch'+str(batch.zfill(4))
 subbatch = sys.argv[3]
 subbatch_number = '0_'+str(subbatch)
-file = f'../data/{v}_{batch_number}/{v}_{batch_number}_{subbatch_number}'
+
+file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
 
 print('\n~~ Plot LOP ')
 print(f'Reading: "{file}"')
@@ -51,6 +54,9 @@ with open(file + '_data.pkl', 'rb') as f:
 
 gex = data['simConfig']['gex']
 amp = data['simConfig']['IClamp0']['amp']
+n_cons = data['simConfig']['n_neighbors']
+popRates = data['simData']['popRates']['sPY']
+
 lops = data['LOP_k']
 t_phase = data['t_phase']
 

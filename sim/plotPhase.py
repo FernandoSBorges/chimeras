@@ -23,6 +23,7 @@ cmap_phase = LinearSegmentedColormap.from_list("mycmap", list(zip(nodes, colors)
 def plotPhase(t_phase_smp, spatial_phi):
     fig, ax1 = plt.subplots(ncols=1, nrows=1, figsize=(8,4),sharex=True)
     fig.set_tight_layout(20)
+    fig.suptitle('$g_{ex}='+f'{gex}$ S/cm²' + ' | '+'$I='+f'{amp}$ nA'+ '\n' +f'PopRate $={popRates:.2f}$Hz'+ ' | '+f'$N$ cons: {int(n_cons)}', fontsize=14)
     n_neurons = np.arange(spatial_phi.shape[0])
     t = t_phase_smp
     tg, ig = np.meshgrid(n_neurons, t)
@@ -30,19 +31,21 @@ def plotPhase(t_phase_smp, spatial_phi):
     
     cbar1 = fig.colorbar(hm1, ax=ax1, ticks=[0, np.pi, 2*np.pi])#, cax=cax1, format=formater)
     cbar1.set_label('$\phi(t)$')
-    cbar1.ax.set_yticklabels(['0', '$\pi$', '$2 \pi$']) 
-    ax1.set_title('$g_{ex}='+f'{gex}$ S/cm²' + 5*' '+ '$I='+f'{amp}$ nA')
-    ax1.set_ylabel('$n$ neurônio')
     ax1.set_ylim(0,len(n_neurons))
+    cbar1.ax.set_yticklabels(['0', '$\pi$', '$2 \pi$']) 
+    ax1.set_ylabel('$n$ neurônio')
+    ax1.set_xlabel('Tempo (ms)')
+    ax1.set_xlim(t_phase_smp[1000], t_phase_smp[-100])
     plt.savefig(file+f'_PlotPhase_{gex}_{amp}.png', dpi=600, bbox_inches='tight')
 
 
-v = 'v'+str(sys.argv[1])
+v = str(sys.argv[1])
 batch = sys.argv[2]
 batch_number = 'batch'+str(batch.zfill(4))
 subbatch = sys.argv[3]
 subbatch_number = '0_'+str(subbatch)
-file = f'../data/{v}_{batch_number}/{v}_{batch_number}_{subbatch_number}'
+
+file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
 
 print(f'Reading: "{file}"')
 with open(file + '_data.pkl', 'rb') as f:
@@ -50,6 +53,9 @@ with open(file + '_data.pkl', 'rb') as f:
 
 gex = data['simConfig']['gex']
 amp = data['simConfig']['IClamp0']['amp']
+n_cons = data['simConfig']['n_neighbors']
+popRates = data['simData']['popRates']['sPY']
+
 t_phase = data['t_phase']
 phases = data['phases']
 

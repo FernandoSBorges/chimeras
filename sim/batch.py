@@ -24,14 +24,17 @@ def custom():
     
     # params[('seeds', 'conn')] =  [1] 
     params[('gex')] = [float(sys.argv[3])]  #v1
+    # filtering string received as argv parameter
+    arg_conns = [value.replace('[','').replace(']','').replace(',','').replace("'",'') for value in sys.argv[4:]]
+    params[('n_neighbors')] = np.array([int(value) for value in arg_conns if value != '']).astype('float64')
+    
+    # arg_currents = [value.replace('[','').replace(']','').replace(',','').replace("'",'') for value in sys.argv[4:]]
+    # currents = np.array([float(value) for value in arg_currents if value != '']).astype('float64')
+    # params[('IClamp0', 'amp')] = currents # list of currents
     #params[('numCellsDesync')] = [float(sys.argv[4])]
 
 
-    # filtering string received as argv parameter
-    arg_currents = [value.replace('[','').replace(']','').replace(',','').replace("'",'') for value in sys.argv[4:]]
-    currents = np.array([float(value) for value in arg_currents if value != '']).astype('float64')
-
-    params[('IClamp0', 'amp')] = currents # list of currents
+    
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
 

@@ -146,8 +146,9 @@ netParams.description = f"""
      - d3 Network with 100 extra neurons to produce a noise.
      - d4 Network with 150 extra neurons to produce a noise.
 
-- v5 - Run a network with gex [0.0001, 0.0002, 0.0003, 0.0004] and 
-     - externar currents np.arange(0.76,.91, 0.01)
+- v4 - Space parameters n conns neighbours by g_ex
+    - n_cons_network = np.arange(4,42,4)
+    - gex = np.round(np.linspace(6,8,10) * 1e-4, 6)
 
 - v6    - Run network time simulation 3 ms
         - gex = np.round(np.linspace(6,40,10) * 1e-4, 6)
