@@ -27,7 +27,7 @@ delta_max = 2
 
 for g in gex:
     for conn in currents:
-        os.system(f'python3 batch.py {v} {batch} {g:.6f} ' + f'{conn}')
+        os.system(f'python3 batch.py {v} {batch} {g:.8f} ' + f'{conn}')
         for c in range(len(conn)):
             os.system(f'python3 preprocessing.py {v} {batch} {c} {delta_max}')
             os.system(f'python3 plotRaster.py {v} {batch} {c}')
