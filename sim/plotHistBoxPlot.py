@@ -18,12 +18,12 @@ plot_params()
 def plot_Hist_GOP(gop):
     fig, ax = plt.subplots(ncols=2, nrows=1, figsize=(8,4), gridspec_kw={'width_ratios':[1,3]})
     fig.set_tight_layout(20)
-    fig.suptitle('$g_{ex}='+f'{gex}$ S/cm²' + ' | '+'$I='+f'{amp}$ nA'+ '\n' +f'PopRate $={popRates:.2f}$Hz'+ ' | '+f'$N$ cons: {int(n_cons)}', fontsize=14)
+    fig.suptitle('$g_{ex}='+f'{gex}$ S/cm²' + ' | '+'$I='+f'{amp}$ nA'+ '\n' +f'PopRate $={popRates:.2f}$Hz'+ ' | '+f'$r$: {float(r)}', fontsize=14)
     for axis in ax:
         axis.spines['top'].set_visible(False)
         axis.spines['right'].set_visible(False)
 
-    ax[0].set_title('Blox Plot', fontsize=10)
+    ax[0].set_title('Box Plot', fontsize=10)
     bp = ax[0].boxplot(
         gop[1000:-100],positions=[0.42], showmeans=True, showfliers=False,
         medianprops = dict(linewidth=1.5),
@@ -60,7 +60,9 @@ with open(file + '_data.pkl', 'rb') as f:
 
 gex = data['simConfig']['gex']
 amp = data['simConfig']['IClamp0']['amp']
-n_cons = data['simConfig']['n_neighbors']
+n_neighbors = data['simConfig']['n_neighbors']
+cellNumber = data['simConfig']['cellNumber']
+r = n_neighbors / cellNumber
 popRates = data['simData']['popRates']['sPY']
 global_order_parameter = data['GOP']
 

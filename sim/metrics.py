@@ -1,13 +1,14 @@
 import numpy as np 
 import scipy
 import sys
+import os
 
-def get_dict_size(dictionary):
+def get_size(file):
     """
     Retorna o tamanho em megabytes de um dicionário e seus valores.
 
     Args:
-        dictionary (dict): O dicionário para calcular o tamanho.
+        file (string): caminho do arquivo.
 
     Returns:
         float: O tamanho do dicionário e seus valores em megabytes.
@@ -15,10 +16,12 @@ def get_dict_size(dictionary):
     Raises:
         None
     """
-    size = sys.getsizeof(dictionary)
-    for value in dictionary.values():
-        size += sys.getsizeof(value)
-    return size / (1024 * 1024)  # Convertendo para megabytes
+    try:
+        file_stats = os.stat(file)
+        file_size = file_stats.st_size
+        print(f"File Size is {file_size / (1024 * 1024):.2f}MB")
+    except FileNotFoundError:
+        print("File not found.")
 
 def get_numpy(data):
     """
@@ -76,8 +79,7 @@ def phase_of_v(t_sample, v_sample, return_peaks=False):
         peaks_id, t_peak, _ = find_peaks(t_sample, v)
         peaksmat.append(peaks_id)
         t_peaks.append(t_peak)
-    
-    id_first_spk = min([min(peak) for peak in peaksmat]) # id primeiro spk
+    id_first_spk = max([min(peak) for peak in peaksmat]) # dos menore spk o maior
     id_last_spk = min([max(peak) for peak in peaksmat]) # id do primeiro dos ultimos spk 
 
     t_range = t_sample[id_first_spk:id_last_spk]  # tempo onde a phase é definida
@@ -118,27 +120,26 @@ def kuramoto_param_global_order(spatial_phase_arr):
     z = np.abs(somatorio) / n
     return z
 
-def kuramoto_param_local_order(spatial_phase_arr, k):
+def kuramoto_param_local_order(spatial_phase_arr, delta):
     """
     Calculates the Kuramoto parameter order for a given spatial phase distribution.
 
     Args:
         spatial_phase_arr (numpy.ndarray): Array representing the spatial phase distribution of neurons.
-        k (int): Number of neighboring neurons to consider.
+        delta (int): Window of neighboring neurons to consider.
 
     Returns:
         numpy.ndarray: Array of Kuramoto parameter order values for each neuron.
     """
     n = len(spatial_phase_arr)
-    p = int(k/2)  # neurons in one direction
     z = np.zeros_like(spatial_phase_arr)
 
     for i in range(n):
         somatorio = 0
-        for vizinhos in range(i - p, i + p + 1):
+        for vizinhos in range(i - delta, i + delta + 1):
             j = vizinhos % n
             somatorio += np.exp(complex(0, spatial_phase_arr[j]))
-        z[i] = np.abs(somatorio / (int(2*p)+1))
+        z[i] = np.abs(somatorio / (int(2*delta)+1))
     return z
 
 

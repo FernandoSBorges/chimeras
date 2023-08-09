@@ -12,27 +12,30 @@ subbatch_number = '0_'+str(subbatch)
 delta = int(sys.argv[4])
 file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
 
-# file = f'../data/v8_batch3/v8_batch3'
+# file = f'../data/v0_batch0/v0_batch0'
+# delta = 2
 
 
 print('\n~~ Pre processing ')
 print(f'~ Read file: {file}')
 with open(file+'_data.pkl', 'rb') as f:
     data = pickle.load(f)
-size_in_mb = get_dict_size(data)
 
-print(f"Tamanho do dicionário:{size_in_mb:.4f}MB")
-
+n_neighbors = data['simConfig']['n_neighbors']
+cellNumber = data['simConfig']['cellNumber']
+r = n_neighbors / cellNumber
+data['r'] = r
+print(f'Cell number: {cellNumber} \t n_neighbors: {n_neighbors} \t r: {r}')
 t_data, v_data = get_numpy(data)
 
-ti_sample = 40000
-tf_sample = 51001
+ti_sample = 0
+# tf_sample = 51001
 
-data['ti_sample'] = ti_sample
-data['tf_sample'] = tf_sample
+# data['ti_sample'] = ti_sample
+# data['tf_sample'] = tf_sample
 
-v_sample = v_data[:, ti_sample:tf_sample] 
-t_sample = t_data[ti_sample:tf_sample]
+v_sample = v_data[:, ti_sample:] 
+t_sample = t_data[ti_sample:]
 
 
 print('~ Computing phase')
@@ -45,7 +48,6 @@ data['t_peaks'] = t_peaks
 data['id_first_spk'] = id_first_spk
 data['id_last_spk'] = id_last_spk
 
-
 print('~ Computing GOP')
 gop = np.zeros(phases.shape[1])
 for i, spatial_phase in enumerate(phases.T):
@@ -54,18 +56,17 @@ data['GOP'] = gop
 
 print('~ Computing LOP:')
 lops = {}
-print(f' -- K:{np.arange(2,delta+1, 2)}')
-for k in range(2, delta+1,2):
-    print(f'--> K: {k}')
+print(f' -- delta:{np.arange(1, delta+1, 1)}')
+for d in range(1, delta+1,1):
+    print(f'--> d: {d}')
     lop = np.zeros_like(phases.T)
     for i, spatial_phase in enumerate(phases.T):
-        lop[i] = kuramoto_param_local_order(spatial_phase, k=k)
-    lops[k] = lop
-data['LOP_k'] = lops
-
-size_in_mb = get_dict_size(data)
-
-print(f"Tamanho final do dicionário:{size_in_mb:.4f}MB")
+        lop[i] = kuramoto_param_local_order(spatial_phase, delta=d)
+    lops[d] = lop
+data['LOP_delta'] = lops
+get_size(file+'_data.pkl')
 print(f'~ Dump pickle file: {file}\n')
 with open(file+'_data.pkl', 'wb') as handle:
     pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
+get_size(file+'_data.pkl')
+

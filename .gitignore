@@ -149,6 +149,8 @@ data7/
 data8/
 data9/
 data10/
+data11/
+data12/
 data_test/
 organize.py
 run_organize.py

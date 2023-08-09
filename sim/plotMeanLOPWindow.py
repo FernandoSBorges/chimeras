@@ -16,10 +16,10 @@ def plot_params():
     plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 plot_params()
 
-def plotMeanLOPWin(mean_lop_window, t_phase, gop, window, k):
+def plotMeanLOPWin(mean_lop_window, t_phase, gop, window, delta):
     fig, ax = plt.subplots(ncols=1, nrows=2, figsize=(8, 6))
     fig.set_tight_layout(20)
-    fig.suptitle('$g_{ex}='+f'{gex}$ S/cm²' + ' | '+'$I='+f'{amp}$ nA'+ '\n' +f'PopRate $={popRates:.2f}$Hz'+ ' | '+f'$N$ cons: {int(n_cons)}', fontsize=14)
+    fig.suptitle('$g_{ex}='+f'{gex}$ S/cm²' + ' | '+'$I='+f'{amp}$ nA'+ '\n' +f'PopRate $={popRates:.2f}$Hz'+ ' | '+f'$r$: {float(r)}', fontsize=14)
     janela = t_phase[window]-t_phase[0]
 
     for axis in ax:
@@ -27,7 +27,7 @@ def plotMeanLOPWin(mean_lop_window, t_phase, gop, window, k):
         axis.spines['right'].set_visible(False)
 
     # pos = np.linspace(t_phase[0], t_phase[-1], mean_lop_window.shape[1]) + win/2
-    ax[0].set_title(f'Média de $LOP_{k}(t)$ em janela de {int(janela)} ms, k = {int(k)}')
+    ax[0].set_title(f'Média de $LOP_{int(delta)}(t)$ em janela de {int(janela)} ms, $\delta$ = {int(delta)}')
     bp= ax[0].boxplot(
         mean_lop_window, showmeans=True, showfliers=False,
         medianprops = dict(linewidth=2.))
@@ -40,7 +40,7 @@ def plotMeanLOPWin(mean_lop_window, t_phase, gop, window, k):
     ax[1].set_xlim(t_phase[0], t_phase[-1])
     ax[1].set_ylim(-0.05, 1.05)
     ax[1].set_xlabel('Tempo (ms)')
-    plt.savefig(file+f'_plotMeanLOPWin_{gex}_{amp}_{k}.png', dpi=600, bbox_inches='tight')
+    plt.savefig(file+f'_plotMeanLOPWin_{gex}_{amp}_{int(delta)}.png', dpi=600, bbox_inches='tight')
 
 v = str(sys.argv[1])
 batch = sys.argv[2]
@@ -56,19 +56,20 @@ with open(file + '_data.pkl', 'rb') as f:
 
 gex = data['simConfig']['gex']
 amp = data['simConfig']['IClamp0']['amp']
-n_cons = data['simConfig']['n_neighbors']
+n_neighbors = data['simConfig']['n_neighbors']
+cellNumber = data['simConfig']['cellNumber']
+r = n_neighbors / cellNumber
 popRates = data['simData']['popRates']['sPY']
 
-lops = data['LOP_k']
+lops = data['LOP_delta']
 gop = data['GOP']
 t_phase = data['t_phase']
 win = 201
 
-for k, lop in lops.items():
-    print(f'--> LOP k: {k}, window: {win}')
+for d, lop in lops.items():
+    print(f'--> LOP delta: {d}, window: {win}')
     mlp = metrics.mean_lop_window(lop, win)
-    plotMeanLOPWin(mlp, t_phase, gop, win, k)
+    plotMeanLOPWin(mlp, t_phase, gop, win, d)
     del mlp
-
 print('~~')
 
