@@ -71,7 +71,7 @@ for pop in cfg.allpops:
 # VecStim with spike times
 #------------------------------------------------------------------------------
 spkTimes = [ti for ti in range(1, cfg.desyncr_spikes_dur + 1, cfg.desyncr_spikes_period)] # spikes during 50 ms to create desyncronization
-netParams.popParams['initialspikes'] = {'cellModel': 'VecStim', 'numCells': cfg.numCellsDesync, 'spkTimes': spkTimes}  
+netParams.popParams['initialspikes'] = {'cellModel': 'VecStim', 'numCells': cfg.numCellsDesync, 'spkTimes': spkTimes, 'noise': 0.12}  
 
 #------------------------------------------------------------------------------
 # Current inputs (IClamp)
@@ -79,14 +79,14 @@ netParams.popParams['initialspikes'] = {'cellModel': 'VecStim', 'numCells': cfg.
 if cfg.addIClamp:
      for key in [k for k in dir(cfg) if k.startswith('IClamp')]:
         params = getattr(cfg, key, None)
-        [pop,sec,loc,start,dur,amp] = [params[s] for s in ['pop','sec','loc','start','dur','amp']]
+        [pop, cellList, sec,loc,start,dur,amp] = [params[s] for s in ['pop','cellList','sec','loc','start','dur','amp']]
         #cfg.analysis['plotTraces']['include'].append((pop,0))  # record that pop
         # add stim source
         netParams.stimSourceParams[key] = {'type': 'IClamp', 'delay': start, 'dur': dur, 'amp': amp}
         # connect stim source to target
         netParams.stimTargetParams[key+'_'+pop] =  {
             'source': key, 
-            'conds': {'pop': pop},
+            'conds': {'pop': pop, 'cellList':cellList},
             'sec': sec, 
             'loc': loc}
 
@@ -115,6 +115,7 @@ netParams.connParams['EE'] = {
     'postConds': {'pop': cfg.allpops},
     'synMech': 'AMPA', 
     'probability': prob, 
+    'delay' : cfg.snapse_delay, # If omitted, defaults to netParams.defaultDelay = 1
     'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
     }
 
@@ -133,40 +134,18 @@ netParams.connParams['initialrandom'] = {
 #------------------------------------------------------------------------------
 netParams.description = f""" 
 - Code based: 
-- v0    -   test
-- v1    -   Reproduce a spike the one neuron in figures/Fig1_Pospischil_Minimal-Hodgkin–Huxley.png
-- v2    -   A PRY neuron with various applied currents.
-        -   Analyze the trigger frequency.
-        -   i_ext = np.arange(0.1,1.1, 0.01)
-        
-- v3    -   building a non-local network with fix gex=0.0001 and i_ext = np.arange(0.5,1.01, 0.01)
+- v1    - Looking for a representative transient.  
+        - Network with 100 neurons, duration 10000ms, trans 2000ms, r 0.14
 
-- v4 - d1 Network without extra neurons to produce a noise.
-     - d2 Network with 50 extra neurons to produce a noise.
-     - d3 Network with 100 extra neurons to produce a noise.
-     - d4 Network with 150 extra neurons to produce a noise.
+- v2    - Looking for a representative transient.  
+        - Network with 100 neurons, duration 5000ms, trans 2000ms, fix amp = 0.85
 
-- v4 - Space parameters n conns neighbours by g_ex
-    - n_cons_network = np.arange(4,42,4)
-    - gex = np.round(np.linspace(6,8,10) * 1e-4, 6)
+- v4    - Space param
+        - gex = np.round(np.arange(2.,5.1,0.2) * 1e-4, 6)
+        - n_cons_network = np.arange(0,34,2)[1:]
 
-- v6    - Run network time simulation 3 ms
-        - gex = np.round(np.linspace(6,40,10) * 1e-4, 6)
-        - i_ext = np.round(np.linspace(0.72, 0.9, 10), 3)
-        - lenght network = 100 neurons
+        - Network with 100 neurons, duration 10000ms, trans 2000ms, fix amp = 0.75
 
-- v7    - Run network time simulation 3 ms
-        - gex = np.round(np.linspace(6,40,10) * 1e-4, 6)
-        - i_ext = np.round(np.linspace(0.72, 0.9, 10), 3)
-        - lenght network = 200 neurons
 
-- v8    - Run network time simulation 6 ms
-        - gex = np.round(np.linspace(6,10,10) * 1e-4, 6)
-        - i_ext = np.round(np.linspace(0.72, 0.9, 10), 3)
-        - lenght network = 100 neurons
-
-- v8    - Run network time simulation 6 ms
-        - gex = np.round(np.linspace(6,10,10) * 1e-4, 6)
-        - i_ext = np.round(np.linspace(0.72, 0.9, 10), 3)
-        - lenght network = 200 neurons
+    
 """
