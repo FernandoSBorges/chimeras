@@ -36,7 +36,7 @@ def plot_LOP(t_phase_smp, lop, vizinhos):
     ax2.set_ylabel('$n$ neurônio')
     ax2.set_ylim(0,len(n_neurons))
     ax2.set_xlabel('Tempo (ms)')
-    ax2.set_xlim(t_phase_smp[1000], t_phase_smp[-100])
+    ax2.set_xlim(5000, 6000)
     plt.savefig(file+f'_PlotLOP_{gex}_{amp}_{vizinhos}.png', dpi=600, bbox_inches='tight')
 
 v = str(sys.argv[1])
@@ -45,8 +45,8 @@ batch_number = 'batch'+str(batch.zfill(4))
 subbatch = sys.argv[3]
 subbatch_number = '0_'+str(subbatch)
 
-file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
-# file = '../data/v0_batch0/v0_batch0'
+file = f'../data4/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
+# file = '../data/v1_batch0/v1_batch0'
 
 print('\n~~ Plot LOP ')
 print(f'Reading: "{file}"')

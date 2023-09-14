@@ -35,7 +35,7 @@ def plotPhase(t_phase_smp, spatial_phi):
     cbar1.ax.set_yticklabels(['0', '$\pi$', '$2 \pi$']) 
     ax1.set_ylabel('$n$ neurônio')
     ax1.set_xlabel('Tempo (ms)')
-    ax1.set_xlim(2001, t_phase_smp[-100])
+    ax1.set_xlim(5000, 6000)
     plt.savefig(file+f'_PlotPhase_{gex}_{amp}.png', dpi=600, bbox_inches='tight')
 
 
@@ -45,8 +45,8 @@ batch_number = 'batch'+str(batch.zfill(4))
 subbatch = sys.argv[3]
 subbatch_number = '0_'+str(subbatch)
 
-file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
-# file = f'../data/v0_batch0/v0_batch0'
+file = f'../data4/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
+# file = '../data/v1_batch0/v1_batch0'
 
 print(f'Reading: "{file}"')
 with open(file + '_data.pkl', 'rb') as f:

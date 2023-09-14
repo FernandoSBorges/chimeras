@@ -4,16 +4,16 @@ import numpy as np
 from metrics import *
 
 # read variables of file
-v = str(sys.argv[1])
-batch = sys.argv[2]
-batch_number = 'batch'+str(batch.zfill(4))
-subbatch = sys.argv[3]
-subbatch_number = '0_'+str(subbatch)
-delta = int(sys.argv[4])
-file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
+# v = str(sys.argv[1])
+# batch = sys.argv[2]
+# batch_number = 'batch'+str(batch.zfill(4))
+# subbatch = sys.argv[3]
+# subbatch_number = '0_'+str(subbatch)
+# delta = int(sys.argv[4])
+# file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
 
-# file = f'../data/v0_batch0/v0_batch0'
-# delta = 2
+file = f'../data/v1_batch0/v1_batch0'
+delta = 5
 
 
 print('\n~~ Pre processing ')
@@ -26,9 +26,12 @@ cellNumber = data['simConfig']['cellNumber']
 r = n_neighbors / cellNumber
 data['r'] = r
 print(f'Cell number: {cellNumber} \t n_neighbors: {n_neighbors} \t r: {r}')
+print(f"time simulation: {data['simData']['t'][-1]:.2f}\n")
 t_data, v_data = get_numpy(data)
 
-ti_sample = 0
+#ti_sample = int((data['simConfig']['desyncr_spikes_dur'] + 100) / 0.1)
+ti_sample = 80000
+print(f"time sample: {data['simData']['t'][-1] - data['simData']['t'][ti_sample]:.2f}\n")
 # tf_sample = 51001
 
 # data['ti_sample'] = ti_sample
@@ -53,17 +56,25 @@ gop = np.zeros(phases.shape[1])
 for i, spatial_phase in enumerate(phases.T):
     gop[i] = kuramoto_param_global_order(spatial_phase)
 data['GOP'] = gop
+data['tempo_para_coerencia'] = time_to_coherence(gop, t_phase, gop_threshold = 0.90, percent_threshold=0.8)
+
+std_thresholds = [0.005, 0.01, 0.015, 0.02, 0.025]
+data['std_thresholds'] = std_thresholds
+data[f'tau_gop'] = t_convergencia_gop(gop = gop, t_sample = t_phase, std_thresholds=std_thresholds)
 
 print('~ Computing LOP:')
 lops = {}
-print(f' -- delta:{np.arange(1, delta+1, 1)}')
-for d in range(1, delta+1,1):
+deltas = np.arange(delta, delta+1, 1)
+print(f' -- deltas: {deltas}')
+for d in deltas:
     print(f'--> d: {d}')
     lop = np.zeros_like(phases.T)
     for i, spatial_phase in enumerate(phases.T):
         lop[i] = kuramoto_param_local_order(spatial_phase, delta=d)
     lops[d] = lop
 data['LOP_delta'] = lops
+data[f'tau_lop'] = t_convergencia_lop(lop = data['LOP_delta'][delta], t_sample=t_phase, std_thresholds=std_thresholds)
+
 get_size(file+'_data.pkl')
 print(f'~ Dump pickle file: {file}\n')
 with open(file+'_data.pkl', 'wb') as handle:

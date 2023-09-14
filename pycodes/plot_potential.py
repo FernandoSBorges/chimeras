@@ -37,7 +37,7 @@ stim_current = np.array([0 if x < start/recordStep or x > (dur+start)/recordStep
 # Plot figure
 #------------------------------------------------------------------------------
 f, (ax0, ax1) = plt.subplots(2,1, figsize=(10,3), gridspec_kw = {'height_ratios':[3, 1]})
-sns.lineplot(x = time, y =voltage, color='black', ax=ax0)
+sns.lineplot(x = time, y = voltage, color='black', ax=ax0)
 ax1.plot(time,stim_current, 'gray')
 
 ax0.set_ylabel('Voltage (mV)')

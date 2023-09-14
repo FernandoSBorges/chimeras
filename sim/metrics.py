@@ -166,3 +166,167 @@ def mean_lop_window(lop, window):
         mlw[i] = np.mean(arr_window, axis=0)
     mlw = np.transpose(mlw)
     return mlw
+
+def time_to_coherence(gop, t, gop_threshold = 0.90, percent_threshold=0.8):
+    """
+    Calcula o tempo necessário para atingir uma coerência específica.
+
+    Esta função recebe duas listas, 'gop' e 't', representando as métricas de GOP (Global Order Parameter)
+    e os tempos correspondentes, respectivamente.
+
+    A função calcula a porcentagem de valores de GOP acima do limite 'gop_threshold'
+    até que essa porcentagem alcance o limite 'percent_threshold'. Quando essa condição é
+    satisfeita, o tempo correspondente é considerado o tempo de coerência (t_coherence).
+
+    Args:
+        gop (list[float]): Uma lista de valores de métricas de GOP.
+        t (list[float]): Uma lista de tempos correspondentes às métricas de GOP.
+        gop_threshold (float, optional): Limite de métricas de GOP para considerar como "coerentes".
+                                         Padrão é 0.85.
+        percent_threshold (float, optional): Limite de porcentagem para considerar que a coerência foi atingida.
+                                             Padrão é 0.8.
+
+    Returns:
+        tuple: Uma tupla contendo o tempo necessário para atingir a coerência desejada e a lista
+               de porcentagens de valores de GOP acima do limite em cada etapa de cálculo.
+
+    Raises:
+        None
+
+    Example:
+        gop = [0.87, 0.92, 0.95, 0.91, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7]
+        t = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1. ]
+        coherence_time = time_to_coherence(gop, t)
+        print(coherence_time)  # Saída esperada: 1.0
+
+        gop = [0.87, 0.92, 0.95, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91, 0.91]
+        t = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1. ]
+        coherence_time = time_to_coherence(gop, t)
+        print(coherence_time)  # Saída esperada: 0.5
+    """
+    percent, counter, i, t_coherence = 0, 0, 0, 0
+    percents = []
+
+    try:
+        while percent < percent_threshold:
+            if gop[i] > gop_threshold:
+                counter += 1
+            percent = counter / len(gop[:i+1])
+            percents.append(percent)
+            if percent >= percent_threshold:
+                t_coherence = t[i]
+            i += 1
+    except (ValueError, IndexError):
+        t_coherence = t[i - 1]
+
+    return t_coherence, percents
+
+
+def t_convergencia_gop(gop, t_sample, std_thresholds, win=10000):
+    """
+    Calcula o tempo de convergência com base na dispersão do parâmetro GOP (Global Order Parameter).
+
+    Esta função recebe um array 'gop', onde cada elemento representa o valor de GOP,
+    e um array 't_sample', que contém os tempos correspondentes às séries temporais de GOP.
+
+    A função calcula o tempo em que a dispersão móvel do GOP atinge um limiar 'std_thresholds' após
+    uma janela de 'win' pontos consecutivos. Esse tempo é considerado o tempo de convergência.
+
+    Args:
+        gop (numpy.ndarray): Um array de parâmetros GOP.
+        t_sample (numpy.ndarray): Um array de tempos correspondentes às séries temporais de GOP.
+        win (int, optional): O tamanho da janela deslizante para o cálculo da dispersão. Padrão é 10000.
+        std_thresholds (list of float): Uma lista de limiares de dispersão para determinar a convergência.
+
+    Returns:
+        tuple (numpy.ndarray, numpy.ndarray): Uma tupla contendo um array NumPy com os tempos de convergência para cada limiar
+        e um array NumPy contendo as dispersões calculadas para cada janela.
+
+    Raises:
+        None
+    """
+
+    std = np.zeros(len(gop) - win)
+    t_coherences = np.zeros(len(std_thresholds))
+    i = 0
+
+    try:
+        gates = np.full(len(std_thresholds), True) # gates of threholds 
+        while np.std(gop[i:i+win]) > np.min(std_thresholds):
+            std[i] = np.std(gop[i:i+win])
+            for g, (n, threshold) in zip(gates , enumerate(std_thresholds)):
+                if g and std[i] < threshold:
+                    t_coherences[n] = t_sample[i]
+                    gates[n] = False 
+            i += 1
+
+        for n, g in enumerate(gates):
+            if g:
+                t_coherences[n] = t_sample[i]
+        print('** End While')
+        print(f'~> GOP t_coherences:\n \t{t_coherences}')
+        return t_coherences, std
+    except (ValueError, IndexError):
+        print('** IndexError')
+        for n, g in enumerate(gates):
+            if g:
+                t_coherences[n] = t_sample[i-1]
+            else:
+                t_coherences[n] = t_coherences[n]
+        print(f'~> GOP t_coherences:\n \t{t_coherences}')
+        return t_coherences, std
+    
+def t_convergencia_lop(lop, t_sample, std_thresholds, win=10000):
+    """
+    Calcula o tempo de convergência com base na dispersão do parâmetro LOP (Local Order Parameter).
+
+    Esta função recebe um array 'lop', onde cada elemento representa o valor de LOP de cada elemento,
+    e um array 't_sample', que contém os tempos correspondentes às séries temporais de LOP.
+
+    A função calcula o tempo em que a dispersão móvel do LOP espacial médio atinge um limiar 'std_thresholds' após
+    uma janela de 'win' pontos consecutivos. Esse tempo é considerado o tempo de convergência.
+
+    Args:
+        lop (numpy.ndarray): Um array de parâmetros LOP.
+        t_sample (numpy.ndarray): Um array de tempos correspondentes às séries temporais de GOP.
+        win (int, optional): O tamanho da janela deslizante para o cálculo da dispersão. Padrão é 10000.
+        std_thresholds (list of float): Uma lista de limiares de dispersão para determinar a convergência.
+
+    Returns:
+        tuple (numpy.ndarray, numpy.ndarray): Uma tupla contendo um array NumPy com os tempos de convergência para cada limiar
+        e um array NumPy contendo as dispersões calculadas para cada janela.
+
+    Raises:
+        None
+    """
+
+    lop_mean = lop.mean(axis=1)
+    std = np.zeros(len(lop_mean) - win)
+    t_coherences = np.zeros(len(std_thresholds))
+    i = 0
+
+    try:
+        gates = np.full(len(std_thresholds), True) # gates of threholds 
+        while np.std(lop_mean[i:i+win]) > np.min(std_thresholds):
+            std[i] = np.std(lop_mean[i:i+win])
+            for g, (n, threshold) in zip(gates , enumerate(std_thresholds)):
+                if g and std[i] < threshold:
+                    t_coherences[n] = t_sample[i]
+                    gates[n] = False 
+            i += 1
+
+        for n, g in enumerate(gates):
+            if g:
+                t_coherences[n] = t_sample[i]
+        print('** End While')
+        print(f'~> LOP t_coherences:\n \t{t_coherences}')
+        return t_coherences, std
+    except (ValueError, IndexError):
+        print('** IndexError')
+        for n, g in enumerate(gates):
+            if g:
+                t_coherences[n] = t_sample[i-1]
+            else:
+                t_coherences[n] = t_coherences[n]
+        print(f'~> LOP t_coherences:\n \t{t_coherences}')
+        return t_coherences, std
