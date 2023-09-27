@@ -16,11 +16,11 @@ def plot_params():
 plot_params()
 
 from matplotlib.colors import LinearSegmentedColormap
-colors = ["gold","royalblue", "midnightblue","royalblue","gold"]
+colors = ["gold","royalblue", "midnightblue","black","royalblue","gold"]
 nodes = np.linspace(0, 1, len(colors))
 cmap_phase = LinearSegmentedColormap.from_list("mycmap", list(zip(nodes, colors)))
 
-def plotPhase(t_phase_smp, spatial_phi):
+def plotPhase(t_phase_smp, spatial_phi, n):
     fig, ax1 = plt.subplots(ncols=1, nrows=1, figsize=(10,4),sharex=True)
     fig.set_tight_layout(20)
     fig.suptitle('$g_{ex}='+f'{gex}$ S/cm²' + ' | '+'$I='+f'{amp}$ nA'+ '\n' +f'PopRate $={popRates:.2f}$Hz'+ ' | '+f'$r$: {float(r)}', fontsize=14)
@@ -35,18 +35,18 @@ def plotPhase(t_phase_smp, spatial_phi):
     cbar1.ax.set_yticklabels(['0', '$\pi$', '$2 \pi$']) 
     ax1.set_ylabel('$n$ neurônio')
     ax1.set_xlabel('Tempo (ms)')
-    ax1.set_xlim(5000, 6000)
-    plt.savefig(file+f'_PlotPhase_{gex}_{amp}.png', dpi=600, bbox_inches='tight')
+    # ax1.set_xlim(ti, tf)
+    plt.savefig(file+f'_PlotPhase_{gex}_{amp}_({n}).png', dpi=600, bbox_inches='tight')
 
 
-v = str(sys.argv[1])
-batch = sys.argv[2]
-batch_number = 'batch'+str(batch.zfill(4))
-subbatch = sys.argv[3]
-subbatch_number = '0_'+str(subbatch)
+# v = str(sys.argv[1])
+# batch = sys.argv[2]
+# batch_number = 'batch'+str(batch.zfill(4))
+# subbatch = sys.argv[3]
+# subbatch_number = '0_'+str(subbatch)
 
-file = f'../data4/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
-# file = '../data/v1_batch0/v1_batch0'
+# file = f'../data4/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
+file = f'../data/v5_batch0001/v2_batch0001_0_0'
 
 print(f'Reading: "{file}"')
 with open(file + '_data.pkl', 'rb') as f:
@@ -62,4 +62,9 @@ popRates = data['simData']['popRates']['sPY']
 t_phase = data['t_phase']
 phases = data['phases']
 
-plotPhase(t_phase, phases)
+ti1=int(0.5*len(t_phase))
+ti2=int(0.85*len(t_phase))
+tf=int(len(t_phase))
+
+plotPhase(t_phase[ti1:tf], phases[:,ti1:tf], n = 1)
+plotPhase(t_phase[ti2:tf], phases[:,ti2:tf], n = 2)

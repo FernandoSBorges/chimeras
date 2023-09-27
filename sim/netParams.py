@@ -115,7 +115,7 @@ netParams.connParams['EE'] = {
     'postConds': {'pop': cfg.allpops},
     'synMech': 'AMPA', 
     'probability': prob, 
-    'delay' : cfg.snapse_delay, # If omitted, defaults to netParams.defaultDelay = 1
+    'delay' : cfg.synapse_delay, # If omitted, defaults to netParams.defaultDelay = 1
     'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
     }
 
@@ -146,6 +146,28 @@ netParams.description = f"""
 
         - Network with 100 neurons, duration 10000ms, trans 2000ms, fix amp = 0.75
 
+- v5    - Space param
+        - gex = np.round(np.arange(1.9,3.9,0.1) * 1e-4, 6)
+        - n_cons_network = np.arange(11,31,1)
 
+        - Network with 100 neurons, duration 12000ms, trans 2000ms, fix amp = 0.75
+
+- v6    - Space param
+        - gex = np.round(np.arange(2.,3.1,0.2) * 1e-4, 6)
+        - n_cons_network = np.arange(36,48,2)
+        - Network with 200 neurons, duration 12000ms, trans 6000ms, fix amp = 0.75, snapse delay = 0.033ms
+
+        !!!! Observation: the cfg.synapse_delay > cfg.dt
+
+        
+- v7    - 
+        # coupling of elements
+        gex = np.round(np.arange(1.2,3.1,0.2) * 1e-4, 6)
+        # external current
+        # i_ext = np.round(np.linspace(0.7, 0.9, 12), 3)
+        # currents = np.array_split(i_ext, 4)
+
+        n_cons_network = np.arange(20,40,2)
+        ncons = np.array_split(n_cons_network, 2)
     
 """

@@ -50,16 +50,16 @@ cfg.checkErrors = False
 # cfg.allpops = ['sPY', 'initialspikes']
 # cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 cfg.allpops = ['sPY']
-cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
+cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'r'sPY, 'sPY']
 
 #------------------------------------------------------------------------------
 # Net
 #------------------------------------------------------------------------------
-cfg.cellNumber = 100
-cfg.gex = 0.00022 # default 0.0005
-cfg.n_neighbors = 24 #int(0.3 * cfg.cellNumber) # all conetions 
+cfg.cellNumber = 200
+cfg.gex = 0.00020 # default 0.0005
+cfg.n_neighbors = 34 #int(0.3 * cfg.cellNumber) # all conetions 
 cfg.amp = 0.75
-cfg.snapse_delay = 1 #0.01
+cfg.synapse_delay = 0.025 #0.05 #1 #0.01
 #------------------------------------------------------------------------------
 # Current inputs 
 #------------------------------------------------------------------------------
@@ -112,11 +112,11 @@ elif cfg.cellsrec == 2: cfg.recordCells = [(pop,ii) for pop in cfg.allpops for i
 #     'figSize': (12,12), 'view': 'xz', 'fontSize':12,
 #     }
 
-cfg.analysis['plotRaster'] = {  ## Plot a raster
-    'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False,
-    'orderInverse': True, 'timeRange': [0,cfg.duration],'figSize': (24,12),
-    'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300,
-    }
+# cfg.analysis['plotRaster'] = {  ## Plot a raster
+#     'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False,
+#     'orderInverse': True, 'timeRange': [600,cfg.duration],'figSize': (24,12),
+#     'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300, 'popColors':{'sPY':'black'}
+#     }
 
 # cfg.analysis['plotSpikeStats'] = {
 #     'include': cfg.allpops, 'stats':['rate', 'isicv', 'sync'],

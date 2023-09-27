@@ -27,20 +27,19 @@ def plotRaster(t_phase_smp, t_peaks, ti, tf, n):
     ax.set_ylabel('$n$-ésimo Neurônio')
     ax.set_xlabel('Tempo (ms)')
     ax.set_ylim(0, len(t_peaks))
-    # ax.set_xlim(t_phase_smp[-50000], t_phase_smp[-100])
     ax.set_xlim(ti, tf)
     ax.eventplot(t_peaks, color='black')
-    plt.savefig(file+f'_PlotRaster_{gex}_{amp}({n}).png', dpi=600, bbox_inches='tight')
+    plt.savefig(file+f'_PlotRaster_{gex}_{amp}_({n}).png', dpi=600, bbox_inches='tight')
     # plt.show()
 
-# v = str(sys.argv[1])
-# batch = sys.argv[2]
-# batch_number = 'batch'+str(batch.zfill(4))
-# subbatch = sys.argv[3]
-# subbatch_number = '0_'+str(subbatch)
+v = str(sys.argv[1])
+batch = sys.argv[2]
+batch_number = 'batch'+str(batch.zfill(4))
+subbatch = sys.argv[3]
+subbatch_number = '0_'+str(subbatch)
 
-# file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
-file = '../data/v1_batch0/v1_batch0'
+file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
+# file = f'../data/v1_batch0/v1_batch0'
 
 print('~~ Plot Raster')
 print(f'Reading: "{file}"')
@@ -57,7 +56,13 @@ popRates = data['simData']['popRates']['sPY']
 t_phase = data['t_phase']
 t_peaks = data['t_peaks']
 
-plotRaster(t_phase, t_peaks, ti=2000, tf=12000, n = 1)
-plotRaster(t_phase, t_peaks, ti=10000, tf=11000, n = 2)
+ti1=t_phase[int(0.1*len(t_phase))]
+tf1=t_phase[int(len(t_phase)-1)]
+
+ti2=t_phase[int(0.1*len(t_phase))]
+tf2=t_phase[int(0.5*len(t_phase))]
+
+plotRaster(t_phase, t_peaks, ti=ti1, tf=tf1, n = 1)
+plotRaster(t_phase, t_peaks, ti=ti2, tf=tf2, n = 2)
 
 print('\n~~')

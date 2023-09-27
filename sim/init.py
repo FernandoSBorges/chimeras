@@ -69,15 +69,16 @@ sim.analysis.plotData()         			# plot spike raster etc
 rate = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_rate.pkl', stats=['rate'], saveFig=False, timeRange=[cfg.desyncr_spikes_dur+100, cfg.duration])
 isicv = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_CV.pkl', stats=['isicv'], saveFig=False, timeRange=[cfg.desyncr_spikes_dur+100, cfg.duration])
 sync = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_sync.pkl', stats=['sync'], saveFig=False, timeRange=[cfg.desyncr_spikes_dur+100, cfg.duration])
-print("\n \t %s \t FR = %.3f Hz \t CV = %.3f \t sync = %.3f "  % (cfg.simLabel,np.mean(rate[1]['statData']),np.mean(isicv[1]['statData']),np.mean(sync[1]['statData'])))
+# print("\n \t %s \t FR = %.3f Hz \t CV = %.3f \t sync = %.3f "  % (cfg.simLabel,np.mean(rate[1]['statData']),np.mean(isicv[1]['statData']),np.mean(sync[1]['statData'])))
 # code to test with init.py
 # rate = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel + '_rate.json', stats=['rate'], saveFig=False)
 # isicv = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel + '_CV.json', stats=['isicv'], saveFig=False)
 # sync = sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel + '_sync.json', stats=['sync'], saveFig=False)
 
 os.system('python3 preprocessing.py')
+os.system('python3 plotAll.py')
 # os.system('python3 plotRaster.py')
-# # os.system('python3 plotPhase.py')
 # os.system('python3 plotGOP.py')
 # os.system('python3 plotLOP.py')
+# os.system('python3 plotPhase.py')
 
